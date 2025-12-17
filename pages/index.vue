@@ -1,0 +1,185 @@
+<script setup lang="ts">
+// Using placeholder images that match the dark aesthetic
+const portfolioItems = [
+  { title: 'Space', cat: 'WEB DESIGN', img: 'https://images.unsplash.com/photo-1614726365723-49cfae92782f?q=80&w=2669&auto=format&fit=crop' },
+  { title: 'Nova', cat: 'WEB DESIGN', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop' },
+  { title: 'Sonic', cat: 'WEB DESIGN', img: 'https://images.unsplash.com/photo-1629814596144-8d960098df24?q=80&w=2670&auto=format&fit=crop' },
+  { title: 'Solar', cat: 'WEB DESIGN', img: 'https://images.unsplash.com/photo-1549419164-96869a23c34a?q=80&w=2670&auto=format&fit=crop' },
+]
+
+const services = [
+  { id: '01', title: 'WEB DESIGN', desc: 'Visually stunning web designs that captivate your audience by blending your brand voice and customer needs.', link: 'ABOUT WEB DESIGN' },
+  { id: '02', title: 'DEVELOPMENT', desc: 'Get custom web development solutions that are tailored to your specifications, designed to deliver a flawless user experience.', link: 'ABOUT WEBFLOW' },
+  { id: '03', title: 'CONTENT & SEO', desc: 'Proven SEO strategies that enhance your online performance, bringing you to the forefront of organic search results.', link: 'ABOUT SEO' },
+]
+
+const processSteps = [
+  { id: '01', title: 'DISCOVERY CALL', desc: 'Before we start, we determine if and how I can help you. What are your requirements for your new website?', time: '2 HOURS' },
+  { id: '02', title: 'CONCEPT & STRATEGY', desc: 'Together, we develop a strategy that successfully combines your goals with the needs of your target audience.', time: '1 WEEK' },
+  { id: '03', title: 'WEB DESIGN', desc: 'Now comes the magic. Based on the previously developed concept, I create a high-end screen design perfectly tailored to your brand.', time: '1 WEEK' },
+  { id: '04', title: 'DEVELOPMENT', desc: 'In this step, we breathe life into your new high-end design. You will receive a custom-built website using a modular web design system.', time: '2 WEEKS' },
+  { id: '05', title: 'WEBSITE ONBOARDING', desc: 'In a personal Framer workshop, I will show you how to make changes to your new website quickly and easily.', time: '2 HOURS' },
+]
+
+const clients = [
+  { text: "Amazing results with Arik's Premium Web Design Services.", author: "Olivia Rhye", role: "Product Manager" },
+  { text: "Expert Webflow and SEO Services. Excellent Work, Great Results.", author: "Phoenix Baker", role: "Engineering Manager" },
+  { text: "Professional, Collaborative Web Design Experience with Arik.", author: "Lana Steiner", role: "VP Sales" },
+  { text: "Expertise in Web Design: Second to none with Arik.", author: "Candice Wu", role: "Product Manager" }
+]
+</script>
+
+<template>
+  <div class="bg-rich-black min-h-screen text-cream selection:bg-cream selection:text-rich-black overflow-x-hidden">
+    <NavBar />
+
+    <header class="relative pt-40 pb-20 px-4 md:px-10 flex flex-col items-center justify-center text-center">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[400px] opacity-20 pointer-events-none z-0">
+         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover rounded-b-[10rem] mask-image-fade" alt="Portrait">
+         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-rich-black/50 to-rich-black"></div>
+      </div>
+
+      <div class="relative z-10 mt-32">
+        <h1 class="font-serif text-5xl md:text-8xl italic font-light leading-tight mb-6">
+          Web Designer <br /> 
+          <span class="not-italic">& Developer</span>
+        </h1>
+        <p class="text-muted max-w-md mx-auto text-sm md:text-base mb-12">
+          Premium web design, development, and SEO services to help your business stand out.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-12 opacity-50 grayscale mt-12">
+        <Icon name="simple-icons:nike" size="30" />
+        <Icon name="simple-icons:apple" size="30" />
+        <Icon name="simple-icons:samsung" size="30" />
+        <Icon name="simple-icons:sony" size="30" />
+      </div>
+    </header>
+
+    <section class="px-6 md:px-16 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div v-for="service in services" :key="service.id" class="bg-off-black p-10 rounded-sm border border-white/5 hover:border-white/10 transition group">
+          <span class="text-xs text-muted block mb-6">{{ service.id }}</span>
+          <h3 class="font-serif text-xl mb-4 tracking-wide uppercase">{{ service.title }}</h3>
+          <p class="text-sm text-muted leading-relaxed mb-8">{{ service.desc }}</p>
+          <a href="#" class="text-xs uppercase tracking-widest flex items-center gap-2 group-hover:text-gold-accent transition">
+            <Icon name="ph:arrow-right" /> {{ service.link }}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 md:px-16 py-20">
+      <div class="flex justify-between items-end mb-12">
+        <h2 class="font-serif text-4xl italic">Selected <span class="not-italic">Work</span></h2>
+        <button class="text-xs uppercase border rounded-full px-4 py-2 hover:bg-cream hover:text-black transition">See All</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div v-for="(item, index) in portfolioItems" :key="index" class="group relative cursor-pointer overflow-hidden rounded-sm">
+          <div class="aspect-[4/3] bg-off-black overflow-hidden">
+            <img :src="item.img" class="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition duration-700" alt="Work">
+          </div>
+          <div class="absolute bottom-0 left-0 w-full p-6 flex justify-between items-end bg-gradient-to-t from-black/80 to-transparent">
+            <span class="font-serif text-2xl">{{ item.title }}</span>
+            <span class="text-xs uppercase tracking-widest text-muted">{{ item.cat }}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 md:px-16 py-32 relative">
+      <div class="text-center mb-24">
+        <span class="text-xs uppercase tracking-widest text-muted">The Process</span>
+        <h2 class="font-serif text-5xl md:text-6xl mt-4">Your Website <br/> <span class="italic text-gold-accent/80">in 5 steps</span></h2>
+        <p class="text-muted text-sm mt-6 max-w-md mx-auto">Our process ensures that we create a website tailored to your business needs.</p>
+        
+        <div class="mt-12 w-10 h-10 border rounded-full border-white/20 flex items-center justify-center mx-auto text-muted">
+           <Icon name="ph:arrow-down" />
+        </div>
+      </div>
+
+      <div class="relative max-w-5xl mx-auto">
+        <div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-white/10 hidden md:block"></div>
+
+        <div v-for="(step, index) in processSteps" :key="step.id" class="relative grid grid-cols-1 md:grid-cols-2 gap-8 mb-24 last:mb-0">
+          
+          <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-0 w-8 h-8 rounded-full bg-rich-black border border-white/20 items-center justify-center text-xs text-muted z-10">
+            {{ step.id }}
+          </div>
+
+          <div :class="[
+            'p-8 bg-off-black border border-white/5 rounded-sm relative',
+            index % 2 === 0 ? 'md:col-start-2 md:ml-12' : 'md:col-start-1 md:mr-12 md:text-right'
+          ]">
+            <span class="absolute top-4 right-4 text-[10px] border border-white/10 px-2 py-1 rounded text-muted">{{ step.time }}</span>
+            <span class="block text-xs text-muted mb-4 uppercase tracking-widest">{{ step.title }}</span>
+            <h3 class="font-serif text-2xl mb-4 text-cream">{{ step.title }}</h3> <p class="text-sm text-muted leading-relaxed">
+              {{ step.desc }}
+            </p>
+            
+            <ul :class="['mt-6 space-y-2 text-xs text-muted', index % 2 === 0 ? '' : 'flex flex-col items-end']">
+               <li class="flex items-center gap-2"><Icon name="ph:caret-right" class="text-gold-accent"/> Discovery Phase</li>
+               <li class="flex items-center gap-2"><Icon name="ph:caret-right" class="text-gold-accent"/> Strategy Setup</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 md:px-16 py-20 bg-off-black/30">
+        <h2 class="font-serif text-4xl text-center mb-4">What my <br /><span class="italic">clients say</span></h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto mt-16">
+            <div v-for="(client, i) in clients" :key="i" class="bg-off-black p-8 rounded border border-white/5 hover:border-white/20 transition">
+                <Icon name="ph:quotes-fill" class="text-2xl text-white/20 mb-4" />
+                <h4 class="text-lg font-serif mb-6 leading-relaxed">"{{ client.text }}"</h4>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-white/20"></div> <div>
+                        <p class="text-sm font-semibold">{{ client.author }}</p>
+                        <p class="text-xs text-muted">{{ client.role }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative pt-32 pb-10 overflow-hidden">
+        <div class="flex justify-between items-center px-4 md:px-10 opacity-30 text-gold-accent font-serif italic text-4xl md:text-8xl whitespace-nowrap overflow-hidden mb-10">
+            <span>Arik Andersson</span>
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" class="w-32 h-40 object-cover rounded-full mx-10 grayscale opacity-50" />
+            <span>Arik Andersson</span>
+        </div>
+
+        <div class="text-center mt-20 mb-32">
+            <h2 class="font-serif text-5xl md:text-7xl mb-4">Let's make your <br/><span class="italic text-cream">Website shine</span></h2>
+            <p class="text-muted text-sm mb-10">Premium web design, webflow, and SEO services.</p>
+            <button class="bg-cream text-rich-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-white transition hover:scale-105">Let's Talk</button>
+        </div>
+
+        <div class="border-t border-white/10 pt-10 px-10 flex flex-col md:flex-row justify-between items-center text-xs text-muted gap-6">
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-white">INSTAGRAM</a>
+                <a href="#" class="hover:text-white">TWITTER</a>
+                <a href="#" class="hover:text-white">LINKEDIN</a>
+            </div>
+            <div class="flex gap-8">
+                 <a href="#">PAGES</a>
+                 <a href="#">CMS</a>
+                 <a href="#">UTILITY PAGES</a>
+            </div>
+            <button class="bg-cream text-rich-black px-4 py-2 rounded font-bold">TOP</button>
+        </div>
+    </footer>
+
+  </div>
+</template>
+
+<style scoped>
+/* Custom utility for the portrait fade mask */
+.mask-image-fade {
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+</style>
