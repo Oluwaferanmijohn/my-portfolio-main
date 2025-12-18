@@ -10,9 +10,9 @@ const formData = ref({
   <div class="pt-32 pb-20 px-6 md:px-16 min-h-screen">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
       
-      <div class="relative h-[600px] w-full hidden lg:block rounded-sm overflow-hidden">
+      <div class="relative h-[700px] w-full hidden lg:block rounded-sm overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-t from-rich-black via-transparent to-transparent z-10"></div>
-        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-80" alt="Contact Portrait">
+        <img src="../assets/image/5.png" class="w-full h-full object-cover grayscale opacity-80" alt="Contact Portrait">
       </div>
 
       <div>
@@ -37,9 +37,9 @@ const formData = ref({
         </form>
 
         <div class="grid grid-cols-2 gap-4">
-          <a href="mailto:hello@arik.com" class="p-4 border border-white/10 rounded-sm flex items-center gap-4 hover:bg-off-black transition group">
+          <a href="mailto:oluwatoyinferanmijohn@gmail.com" class="p-4 border border-white/10 rounded-sm flex items-center gap-4 hover:bg-off-black transition group">
             <Icon name="ph:envelope-simple" class="text-xl text-muted group-hover:text-gold-accent"/>
-            <span class="text-xs font-bold uppercase">hello@arik.com</span>
+            <span class="text-xs font-bold uppercase">oluwatoyinferanmijohn@gmail.com</span>
           </a>
           <a href="#" class="p-4 border border-white/10 rounded-sm flex items-center gap-4 hover:bg-off-black transition group">
             <Icon name="ph:twitter-logo" class="text-xl text-muted group-hover:text-gold-accent"/>

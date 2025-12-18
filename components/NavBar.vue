@@ -11,9 +11,9 @@
         <NuxtLink to="/blog" class="hover:text-cream transition" active-class="text-gold-accent">BLOG</NuxtLink>
       </div>
 
-      <button class="bg-cream text-rich-black px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-white transition">
+       <NuxtLink to="/contact"> <button class="bg-cream text-rich-black px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-white transition">
         LET'S TALK
-      </button>
+      </button></NuxtLink>
     </div>
   </nav>
 </template>

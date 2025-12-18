@@ -79,7 +79,7 @@ const processSteps = [
 
 const clients = [
   {
-    text: "Amazing results with Arik's Premium Web Design Services.",
+    text: "Amazing results with Oluwaferanmi's Premium Web Design Services.",
     author: "Olivia Rhye",
     role: "Product Manager",
   },
@@ -89,12 +89,12 @@ const clients = [
     role: "Engineering Manager",
   },
   {
-    text: "Professional, Collaborative Web Design Experience with Arik.",
+    text: "Professional, Collaborative Web Design Experience with Oluwaferanmi.",
     author: "Lana Steiner",
     role: "VP Sales",
   },
   {
-    text: "Expertise in Web Design: Second to none with Arik.",
+    text: "Expertise in Web Design: Second to none with Oluwaferanmi.",
     author: "Candice Wu",
     role: "Product Manager",
   },
@@ -181,11 +181,13 @@ const clients = [
         <h2 class="font-serif text-4xl italic">
           Selected <span class="not-italic">Work</span>
         </h2>
-        <button
+         <NuxtLink to="/services">
+
+         <button
           class="text-xs uppercase border rounded-full px-4 py-2 hover:bg-cream hover:text-black transition"
         >
           See All
-        </button>
+        </button></NuxtLink>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
