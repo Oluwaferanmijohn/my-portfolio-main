@@ -5,13 +5,13 @@
        <div class="w-full md:w-1/3">
           <div class="relative aspect-[3/4] overflow-hidden rounded-sm">
               <div class="absolute inset-0 bg-gradient-to-b from-transparent to-rich-black z-10"></div>
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-90" alt="Portrait">
+              <img src="../assets/image/7.png" class="w-full h-full object-cover grayscale opacity-90" alt="Portrait">
           </div>
        </div>
        <div class="w-full md:w-2/3 md:pl-10 text-center md:text-left">
           <h1 class="font-serif text-6xl md:text-8xl leading-tight mb-8">
-            Arik <br />
-            <span class="italic text-gold-accent">Andersson</span>
+            Oluwaferanmi  <br />
+            <span class="italic text-gold-accent">John</span>
           </h1>
           <p class="text-muted text-sm md:text-base max-w-md leading-relaxed mb-8">
              Delivering Premium Web Design and Development Services to Boost Your Online Presence.
@@ -41,7 +41,7 @@
           </p>
        </div>
        <div class="relative">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=2000&auto=format&fit=crop" class="w-full h-auto rounded-sm opacity-80 grayscale" alt="Working">
+          <img src="../assets/image/5.png" class="w-full h-auto rounded-sm opacity-80 grayscale" alt="Working">
        </div>
     </div>
 

@@ -1,7 +1,11 @@
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss", "nuxt-icon"],
-
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/icon"],
+  icon: {
+    serverBundle: {
+      collections: ["simple-icons", "logos"], // Optional: optimize for server-side rendering
+    },
+  },
   app: {
     head: {
       link: [

@@ -1,11 +1,11 @@
 <template>
   <footer class="relative pt-32 pb-10 overflow-hidden bg-rich-black text-cream">
-    <div class="flex justify-between items-center px-4 md:px-10 opacity-30 text-gold-accent font-serif italic text-4xl md:text-8xl whitespace-nowrap overflow-hidden mb-10 select-none">
-      <span>Arik Andersson</span>
+    <div class="flex justify-center items-center px-4 md:px-10 opacity-30 text-gold-accent font-serif italic text-4xl md:text-8xl whitespace-nowrap overflow-hidden mb-10 select-none">
+      <!-- <span>Oluwaferanmi</span> -->
       <div class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-10 overflow-hidden grayscale opacity-50 border border-white/10">
-         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover" />
+         <img src="../assets/image/7.png "  class="w-full h-full object-cover" />
       </div>
-      <span>Arik Andersson</span>
+      <!-- <span>John</span> -->
     </div>
 
     <div class="text-center mt-20 mb-32">
