@@ -18,8 +18,10 @@
 
     <div class="border-t border-white/10 pt-10 px-10 flex flex-col md:flex-row justify-between items-center text-xs text-muted gap-6">
       <div class="flex gap-4">
-        <a href="#" class="hover:text-white transition">INSTAGRAM</a>
+        <a href="https://www.instagram.com/drealphenry/" target="_blank" class="hover:text-white transition">INSTAGRAM</a>
         <a href="#" class="hover:text-white transition">TWITTER</a>
+        <a href="https://www.tiktok.com/@drealphenry" target="_blank" class="hover:text-white transition">TIKTOK</a>
+        <a href="#" class="hover:text-white transition">FACEBOOK</a>
         <a href="#" class="hover:text-white transition">LINKEDIN</a>
       </div>
       <div class="flex gap-8">
