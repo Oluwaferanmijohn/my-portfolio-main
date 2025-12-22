@@ -1,25 +1,50 @@
 <script setup lang="ts">
+import myHostelImg from "../assets/image/myhostel.png";
+import agriGrainsImg from "../assets/image/agrigrains.png";
+import poketIncomeImg from "../assets/image/poketincome.png";
+import moovizImg from "../assets/image/moviz.png";
+import phenryTechImg from "../assets/image/phenrytech.png";
 // Using placeholder images that match the dark aesthetic
 const portfolioItems = [
   {
-    title: "Space",
-    cat: "WEB DESIGN",
-    img: "https://images.unsplash.com/photo-1614726365723-49cfae92782f?q=80&w=2669&auto=format&fit=crop",
+    title: "MyHostel.ng",
+    cat: "WEB APP",
+    Details:
+      "A hostel rental website that helps you get accomodation with ease...",
+    link: "https://myhostel.com.ng",
+    img: myHostelImg,
   },
   {
-    title: "Nova",
-    cat: "WEB DESIGN",
-    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+    title: "AgriGrains",
+    cat: "WEBSITE",
+    link: "https://agrigrains.com.ng",
+    Details:
+      "An agricultural enterprise specializing in the cultivation, export, and sale of various crops...",
+    img: agriGrainsImg,
   },
   {
-    title: "Sonic",
-    cat: "WEB DESIGN",
-    img: "https://images.unsplash.com/photo-1629814596144-8d960098df24?q=80&w=2670&auto=format&fit=crop",
+    title: "Poketincome",
+    cat: "WEBSITE",
+    link: "https://poketincome.netlify.app",
+    Details:
+      "A Platform that helps Creating minimum income for non-traders via copy trading...",
+    img: poketIncomeImg,
   },
   {
-    title: "Solar",
-    cat: "WEB DESIGN",
-    img: "https://images.unsplash.com/photo-1549419164-96869a23c34a?q=80&w=2670&auto=format&fit=crop",
+    title: "Mooviz",
+    cat: "WEB APP",
+    link: "https://mooviz.com.ng/",
+    Details:
+      "A movie streaming platform with a focus on Nigerian cinema and international content.",
+    img: moovizImg,
+  },
+  {
+    title: "Phenry Technologies",
+    cat: "WEBSITE",
+    link: "https://www.phenrytech.com.ng/",
+    Details:
+      "A tech company that offers web and app development, UI/UX, and graphic design services.",
+    img: phenryTechImg,
   },
 ];
 
@@ -28,7 +53,7 @@ const services = [
     id: "01",
     title: "Full-Stack Website/WebApp Development",
     desc: "I build complete, production-ready applications from start to finish. Using Nuxt 3 as my backbone, I handle both the client-side interactivity and the server-side logic.",
-     link: "Nuxt 3, Vue 3, Tailwind CSS, JavaScript/TypeScript, Vercel/Netlify Deployment.",
+    link: "Nuxt 3, Vue 3, Tailwind CSS, JavaScript/TypeScript, Vercel/Netlify Deployment.",
   },
   {
     id: "02",
@@ -105,7 +130,8 @@ const clients = [
   <div
     class="bg-rich-black min-h-screen text-cream selection:bg-cream selection:text-rich-black overflow-x-hidden"
   >
-    <NavBar />      <header
+    <!-- <NavBar /> -->
+    <header
       class="relative pt-40 pb-20 px-4 md:px-10 flex flex-col items-center justify-center text-center"
     >
       <div
@@ -135,22 +161,69 @@ const clients = [
         </p>
       </div>
 
-   <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 mt-12">
-  <Icon name="logos:nuxt-icon" size="40" title="Nuxt 3" />
-  <Icon name="logos:vue" size="35" title="Vue.js" />
-  
-  <Icon name="logos:typescript-icon" size="35" title="TypeScript" />
-  <Icon name="logos:tailwindcss-icon" size="35" title="Tailwind CSS" />
-  
-  <Icon name="logos:supabase-icon" size="35" title="Supabase" />
-  <Icon name="logos:mysql" size="40" title="MySQL" />
-  <Icon name="logos:nodejs-icon" size="35" title="Node.js" />
+      <div
+        class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500 mt-12"
+      >
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="logos:nuxt-icon"
+          size="35"
+          title="Nuxt 3"
+        />
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="logos:vue"
+          size="25"
+          title="Vue.js"
+        />
 
-  <Icon name="simple-icons:vercel" size="35" title="Vercel" />
-  <Icon name="simple-icons:github" size="35" title="GitHub" />
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="logos:typescript-icon"
+          size="25"
+          title="TypeScript"
+        />
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="logos:tailwindcss-icon"
+          size="25"
+          title="Tailwind CSS"
+        />
 
-  <!-- <Icon name="simple-icons:adobephotoshop" size="35" title="Adobe Photoshop" /> -->
-</div>
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="logos:supabase-icon"
+          size="25"
+          title="Supabase"
+        />
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="logos:mysql"
+          size="35"
+          title="MySQL"
+        />
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="logos:nodejs-icon"
+          size="25"
+          title="Node.js"
+        />
+
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="simple-icons:vercel"
+          size="25"
+          title="Vercel"
+        />
+        <Icon
+          class="grayscale hover:grayscale-0"
+          name="simple-icons:github"
+          size="25"
+          title="GitHub"
+        />
+
+        <!-- <Icon name="simple-icons:adobephotoshop" size="35" title="Adobe Photoshop" /> -->
+      </div>
     </header>
 
     <section class="px-6 md:px-16 py-20">
@@ -179,15 +252,15 @@ const clients = [
     <section class="px-6 md:px-16 py-20">
       <div class="flex justify-between items-end mb-12">
         <h2 class="font-serif text-4xl italic">
-          Selected <span class="not-italic">Work</span>
+          Featured <span class="not-italic text-gold-accent/80">Projects</span>
         </h2>
-         <NuxtLink to="/services">
-
-         <button
-          class="text-xs uppercase border rounded-full px-4 py-2 hover:bg-cream hover:text-black transition"
+        <NuxtLink to="/services">
+          <button
+            class="text-xs uppercase border rounded-full px-4 py-2 hover:bg-cream hover:text-black transition"
+          >
+            See All
+          </button></NuxtLink
         >
-          See All
-        </button></NuxtLink>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -204,11 +277,16 @@ const clients = [
             />
           </div>
           <div
-            class="absolute bottom-0 left-0 w-full p-6 flex justify-between items-end bg-gradient-to-t from-black/80 to-transparent"
+            class="absolute bottom-0 left-0 w-full p-6 flex-col flex bg-gradient-to-t from-black/80 to-transparent"
           >
-            <span class="font-serif text-2xl">{{ item.title }}</span>
-            <span class="text-xs uppercase tracking-widest text-muted">{{
-              item.cat
+            <div class="flex justify-between items-end">
+              <span class="font-serif text-2xl">{{ item.title }}</span>
+              <span class="text-xs uppercase tracking-widest text-muted">{{
+                item.cat
+              }}</span>
+            </div>
+            <span class="text-gold-accent/80 text-sm mt-6 max-w-md mx-auto">{{
+              item.Details
             }}</span>
           </div>
         </div>
@@ -322,8 +400,6 @@ const clients = [
         </div>
       </div>
     </section>
-
-    
   </div>
 </template>
 
