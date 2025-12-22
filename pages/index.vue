@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import myHostelImg from "../assets/image/myhostel.png";
-import agriGrainsImg from "../assets/image/agrigrains.png";
-import poketIncomeImg from "../assets/image/poketincome.png";
-import moovizImg from "../assets/image/moviz.png";
-import phenryTechImg from "../assets/image/phenrytech.png";
+import myHostelImg from "../assets/image/myhostel.PNG";
+import agriGrainsImg from "../assets/image/agrigrains.PNG";
+import poketIncomeImg from "../assets/image/poketincome.PNG";
+import moovizImg from "../assets/image/moviz.PNG";
+import phenryTechImg from "../assets/image/phenrytech.PNG";
 // Using placeholder images that match the dark aesthetic
 const portfolioItems = [
   {
