@@ -15,7 +15,7 @@
         name="lucide:arrow-up"
         size="25"
       />
-    </button>
+    </button>  
  </div>
 </template>
 <script setup>

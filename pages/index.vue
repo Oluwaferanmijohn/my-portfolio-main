@@ -71,59 +71,81 @@ const services = [
 
 const processSteps = [
   {
-    id: "01",
-    title: "DISCOVERY CALL",
-    desc: "Before we start, we determine if and how I can help you. What are your requirements for your new website?",
-    time: "2 HOURS",
+    number: "01",
+    subtitle: "The Foundation",
+    title: "Discovery & Blueprint",
+    desc: "We start by analyzing your requirements, target audience, and business goals to create a technical roadmap that ensures we are building the right solution.",
+    details: [
+      "Requirement Analysis",
+      "Market Research",
+      "Technical Architecture",
+    ],
   },
   {
-    id: "02",
-    title: "CONCEPT & STRATEGY",
-    desc: "Together, we develop a strategy that successfully combines your goals with the needs of your target audience.",
-    time: "1 WEEK",
+    number: "02",
+    subtitle: "Visual Architecture",
+    title: "UI/UX Design",
+    desc: "Before a single line of code is written, I design the high-fidelity mockups and interactive prototypes so you can see exactly how your site will look.",
+    details: ["Wireframing", "High-Fidelity UI", "Interactive Prototypes"],
   },
   {
-    id: "03",
-    title: "WEB DESIGN",
-    desc: "Now comes the magic. Based on the previously developed concept, I create a high-end screen design perfectly tailored to your brand.",
-    time: "1 WEEK",
+    number: "03",
+    subtitle: "Implementation",
+    title: "Development",
+    desc: "This is where the magic happens. I build your application using Nuxt 3 and Tailwind CSS, focusing on clean code and database integration.",
+    details: [
+      "Frontend (Nuxt 3)",
+      "Backend API (Supabase)",
+      "Responsive Coding",
+    ],
   },
   {
-    id: "04",
-    title: "DEVELOPMENT",
-    desc: "In this step, we breathe life into your new high-end design. You will receive a custom-built website using a modular web design system.",
-    time: "2 WEEKS",
+    number: "04",
+    subtitle: "Quality Assurance",
+    title: "Testing & Polish",
+    desc: "I rigorously test the site across different devices and browsers. We check for responsiveness, performance speed, and ensure every animation flows smoothly.",
+    details: [
+      "Mobile Testing",
+      "Performance Optimization",
+      "Cross-Browser Check",
+    ],
   },
   {
-    id: "05",
-    title: "WEBSITE ONBOARDING",
-    desc: "In a personal Framer workshop, I will show you how to make changes to your new website quickly and easily.",
-    time: "2 HOURS",
+    number: "05",
+    subtitle: "Go Live",
+    title: "Launch & Handoff",
+    desc: "We go live. I deploy your site, set up your domain, and provide you with the documentation needed to manage your new platform.",
+    details: ["Deployment (Vercel)", "SEO Setup", "Client Training"],
   },
 ];
 
 const clients = [
   {
-    text: "Amazing results with Oluwaferanmi's Premium Web Design Services.",
-    author: "Olivia Rhye",
-    role: "Product Manager",
+    text: "The hostel booking system he built for MyHostel.ng completely streamlined our operations. We went from manual spreadsheets to a fully automated dashboard. Highly recommended.",
+    author: "Olabisi",
+    role: "Co - Founder, MyHostel.ng",
+    // This API automatically generates an avatar image with their initials
+    img: "https://ui-avatars.com/api/?name=olabisi&background=random&color=fff"
   },
   {
-    text: "Expert Webflow and SEO Services. Excellent Work, Great Results.",
-    author: "Phoenix Baker",
-    role: "Engineering Manager",
+    text: "I was worried about managing an inventory website for AgriGrains, but Oluwafernmi made the backend incredibly easy to use. The site is fast, secure, and looks world-class.",
+    author: "kelvin Cross",
+    role: "Operations Manager, AgriGrains",
+    img: "https://ui-avatars.com/api/?name=kelvin+cross&background=random&color=fff"
   },
   {
-    text: "Professional, Collaborative Web Design Experience with Oluwaferanmi.",
-    author: "Lana Steiner",
-    role: "VP Sales",
+    text: "We needed a streaming platform that could handle heavy traffic without crashing. The Mooviz app is stable, and the UI is comparable to major international streaming services.",
+    author: "Oluwatobi Emmanuel",
+    role: "CEO, Mooviz",
+    img: "https://ui-avatars.com/api/?name=Emmanuel+oluwatobi&background=random&color=fff"
   },
   {
-    text: "Expertise in Web Design: Second to none with Oluwaferanmi.",
-    author: "Candice Wu",
-    role: "Product Manager",
-  },
-];
+    text: "His ability to bridge the gap between complex backend logic and beautiful frontend design is rare. Phenry Technologies has seen a 40% increase in user retention since the redesign.",
+    author: "John Olwatoyin",
+    role: "CEO, Phenry Technologies",
+    img: "https://ui-avatars.com/api/?name=john+oluwatoyin&background=random&color=fff"
+  }
+]
 </script>
 
 <template>
@@ -269,26 +291,28 @@ const clients = [
           :key="index"
           class="group relative cursor-pointer overflow-hidden rounded-sm"
         >
-          <div class="aspect-[4/3] bg-off-black overflow-hidden">
-            <img
-              :src="item.img"
-              class="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition duration-700"
-              alt="Work"
-            />
-          </div>
-          <div
-            class="absolute bottom-0 left-0 w-full p-6 flex-col flex bg-gradient-to-t from-black/80 to-transparent"
-          >
-            <div class="flex justify-between items-end">
-              <span class="font-serif text-2xl">{{ item.title }}</span>
-              <span class="text-xs uppercase tracking-widest text-muted">{{
-                item.cat
-              }}</span>
+          <NuxtLink to="/work">
+            <div class="aspect-[4/3] bg-off-black overflow-hidden">
+              <img
+                :src="item.img"
+                class="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition duration-700"
+                alt="Work"
+              />
             </div>
-            <span class="text-gold-accent/80 text-sm mt-6 max-w-md mx-auto">{{
-              item.Details
-            }}</span>
-          </div>
+            <div
+              class="absolute bottom-0 left-0 w-full p-6 flex-col flex bg-gradient-to-t from-black/80 to-transparent"
+            >
+              <div class="flex justify-between items-end">
+                <span class="font-serif text-2xl">{{ item.title }}</span>
+                <span class="text-xs uppercase tracking-widest text-muted">{{
+                  item.cat
+                }}</span>
+              </div>
+              <span class="text-gold-accent/80 text-sm mt-6 max-w-md mx-auto">{{
+                item.Details
+              }}</span>
+            </div></NuxtLink
+          >
         </div>
       </div>
     </section>
@@ -314,61 +338,70 @@ const clients = [
         </div>
       </div>
 
-      <div class="relative max-w-5xl mx-auto">
+      <div
+        v-for="(step, index) in processSteps"
+        :key="step.number"
+        class="relative grid grid-cols-1 md:grid-cols-2 gap-8 mb-24 last:mb-0"
+      >
         <div
-          class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-white/10 hidden md:block"
-        ></div>
-
-        <div
-          v-for="(step, index) in processSteps"
-          :key="step.id"
-          class="relative grid grid-cols-1 md:grid-cols-2 gap-8 mb-24 last:mb-0"
+          class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-0 w-8 h-8 rounded-full bg-black border border-white/20 items-center justify-center text-xs text-gold-accent font-bold z-10"
         >
-          <div
-            class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-0 w-8 h-8 rounded-full bg-rich-black border border-white/20 items-center justify-center text-xs text-muted z-10"
-          >
-            {{ step.id }}
-          </div>
+          {{ step.number }}
+        </div>
 
-          <div
+        <div
+          :class="[
+            'p-8 bg-off-black border border-white/5 rounded-sm relative shadow-lg hover:border-white/10 transition duration-500',
+            index % 2 === 0
+              ? 'md:col-start-2 md:ml-12' // Even items (Right)
+              : 'md:col-start-1 md:mr-12 md:text-right', // Odd items (Left)
+          ]"
+        >
+          <span
+            class="block text-[10px] text-gold-accent mb-3 uppercase tracking-widest"
+            >{{ step.subtitle }}</span
+          >
+
+          <h3 class="font-serif text-2xl mb-4 text-cream">
+            {{ step.title }}
+          </h3>
+
+          <p class="text-sm text-gray-400 leading-relaxed font-light">
+            {{ step.desc }}
+          </p>
+
+          <ul
             :class="[
-              'p-8 bg-off-black border border-white/5 rounded-sm relative',
-              index % 2 === 0
-                ? 'md:col-start-2 md:ml-12'
-                : 'md:col-start-1 md:mr-12 md:text-right',
+              'mt-6 space-y-2 text-xs text-muted',
+              index % 2 === 0 ? '' : 'flex flex-col md:items-end', // Aligns list to right on desktop for odd items
             ]"
           >
-            <span
-              class="absolute top-4 right-4 text-[10px] border border-white/10 px-2 py-1 rounded text-muted"
-              >{{ step.time }}</span
+            <li
+              v-for="detail in step.details"
+              :key="detail"
+              class="flex items-center gap-2"
+              :class="{ 'flex-row-reverse': index % 2 !== 0 }"
             >
-            <span
-              class="block text-xs text-muted mb-4 uppercase tracking-widest"
-              >{{ step.title }}</span
-            >
-            <h3 class="font-serif text-2xl mb-4 text-cream">
-              {{ step.title }}
-            </h3>
-            <p class="text-sm text-muted leading-relaxed">
-              {{ step.desc }}
-            </p>
-
-            <ul
-              :class="[
-                'mt-6 space-y-2 text-xs text-muted',
-                index % 2 === 0 ? '' : 'flex flex-col items-end',
-              ]"
-            >
-              <li class="flex items-center gap-2">
+              <template v-if="index % 2 === 0">
                 <Icon name="ph:caret-right" class="text-gold-accent" />
-                Discovery Phase
-              </li>
-              <li class="flex items-center gap-2">
-                <Icon name="ph:caret-right" class="text-gold-accent" /> Strategy
-                Setup
-              </li>
-            </ul>
-          </div>
+                {{ detail }}
+              </template>
+              <template v-else>
+                <span class="md:hidden"
+                  ><Icon
+                    name="ph:caret-right"
+                    class="text-gold-accent inline mr-2"
+                  />{{ detail }}</span
+                >
+                <span class="hidden md:inline"
+                  >{{ detail }}
+                  <Icon
+                    name="ph:caret-left"
+                    class="text-gold-accent inline ml-2"
+                /></span>
+              </template>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -378,27 +411,32 @@ const clients = [
         What my <br /><span class="italic">clients say</span>
       </h2>
 
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-5xl mx-auto mt-16"
-      >
-        <div
-          v-for="(client, i) in clients"
-          :key="i"
-          class="bg-off-black p-8 rounded border border-white/5 hover:border-white/20 transition"
-        >
-          <Icon name="ph:quotes-fill" class="text-2xl text-white/20 mb-4" />
-          <h4 class="text-lg font-serif mb-6 leading-relaxed">
-            "{{ client.text }}"
-          </h4>
-          <div class="flex items-center gap-4">
-            <div class="w-10 h-10 rounded-full bg-white/20"></div>
-            <div>
-              <p class="text-sm font-semibold">{{ client.author }}</p>
-              <p class="text-xs text-muted">{{ client.role }}</p>
-            </div>
-          </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto mt-16 px-6 md:px-0">
+    <div
+      v-for="(client, i) in clients"
+      :key="i"
+      class="bg-off-black p-8 rounded-sm border border-white/5 hover:border-white/20 hover:bg-white/5 transition duration-300 group"
+    >
+      <Icon name="ph:quotes-fill" class="text-3xl text-gold-accent/30 mb-6" />
+      
+      <h4 class="text-base md:text-lg font-light text-gray-200 mb-8 leading-relaxed">
+        "{{ client.text }}"
+      </h4>
+
+      <div class="flex items-center gap-4 border-t border-white/5 pt-6">
+        <img 
+            :src="client.img" 
+            :alt="client.author"
+            class="w-12 h-12 rounded-full border border-white/10 group-hover:border-gold-accent transition"
+        />
+        
+        <div>
+          <p class="text-sm font-serif font-bold text-white">{{ client.author }}</p>
+          <p class="text-[10px] uppercase tracking-widest text-gold-accent mt-0.5">{{ client.role }}</p>
         </div>
       </div>
+    </div>
+  </div>
     </section>
   </div>
 </template>

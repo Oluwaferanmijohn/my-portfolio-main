@@ -14,12 +14,12 @@
 
     <div class="text-center mt-20 mb-32">
       <h2 class="font-serif text-5xl md:text-7xl mb-4">
-        Let's make your <br /><span class="italic text-cream"
-          >Website shine</span
+        Let's Bring your <br /><span class="italic text-cream"
+          >Website idea To life..</span
         >
       </h2>
       <p class="text-muted text-sm mb-10">
-        Premium web design, webflow, and SEO services.
+        Premium web design and development services tailored to your needs.
       </p>
       <NuxtLink
         to="/contact"
