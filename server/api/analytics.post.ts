@@ -1,3 +1,5 @@
+import { serverSupabaseClient } from "#supabase/server";
+
 const allowed = new Set(["page_view", "cv_click", "contact_sent"]);
 
 export default defineEventHandler(async (event) => {
@@ -11,3 +13,4 @@ export default defineEventHandler(async (event) => {
   if (error) throw createError({ statusCode: 503, statusMessage: "Analytics could not be saved" });
   return { ok: true };
 });
+

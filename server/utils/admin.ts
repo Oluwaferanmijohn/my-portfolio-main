@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import type { H3Event } from "h3";
+import { serverSupabaseUser } from "#supabase/server";
 
 export async function requirePortfolioAdmin(event: H3Event) {
   const config = useRuntimeConfig(event);

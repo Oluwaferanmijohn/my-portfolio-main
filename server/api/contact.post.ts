@@ -1,3 +1,5 @@
+import { serverSupabaseClient } from "#supabase/server";
+
 export default defineEventHandler(async (event) => {
   const body = await readBody<{ name?: string; email?: string; subject?: string; message?: string; website?: string }>(event);
   if (body?.website) return { ok: true };
@@ -32,3 +34,4 @@ export default defineEventHandler(async (event) => {
   }
   return { ok: true };
 });
+

@@ -12,7 +12,7 @@ A Nuxt 4 portfolio with Tailwind CSS, Supabase-backed projects and media, an aut
 6. Run `npm run seed:images` to upload the five existing project images from `assets/image/` into the Supabase Storage bucket and update the seeded project records. New project and CV images can be uploaded through the dashboard.
 7. Set `RESEND_API_KEY`, `CONTACT_EMAIL`, and a verified `FROM_EMAIL` to receive new message notifications. Without Resend, messages are still saved in the dashboard inbox and the public email link remains available.
 8. Optionally set `NUXT_PUBLIC_CV_URL` to an externally hosted CV PDF and `NUXT_PUBLIC_SITE_URL` to the canonical site origin. Or upload the CV from the dashboard to store it in Supabase.
-9. Run `npm run dev`, then visit `http://localhost:3001` and sign in at `http://localhost:3001/dashboard/login` with the admin account.
+9. Run `npm run dev`, then visit `http://localhost:3002` and sign in at `http://localhost:3002/dashboard/login` with the admin account.
 
 The migration seeds the portfolio with the known project list and the existing five project images. Where package metadata was available, technology tags were taken from those manifests; the dashboard lets you review or change any project detail, status, concept, AI description, and stack.
 
@@ -36,4 +36,4 @@ npm run build
 npm run preview
 ```
 
-The development server uses port **3001** by default.
+The development server uses port **3002** by default.

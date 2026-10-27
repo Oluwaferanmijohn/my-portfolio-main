@@ -1,3 +1,5 @@
+import { serverSupabaseClient } from "#supabase/server";
+
 export default defineEventHandler(async (event) => {
   try {
     const supabase = await serverSupabaseClient(event);
@@ -8,3 +10,4 @@ export default defineEventHandler(async (event) => {
     return { cvUrl: "" };
   }
 });
+
