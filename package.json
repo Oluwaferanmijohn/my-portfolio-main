@@ -1,27 +1,24 @@
 {
-  "name": "orange-pen",
+  "name": "my-portfolio",
   "type": "module",
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port 3001",
+    "seed:images": "node --env-file=.env scripts/seed-project-images.mjs",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.3",
     "@nuxtjs/supabase": "^2.0.1",
-    "lucide-vue-next": "^0.555.0",
     "nuxt": "^4.2.1",
     "typescript": "^5.9.3",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
-    "@iconify-json/logos": "^1.2.10",
-    "@iconify-json/simple-icons": "^1.2.63",
-    "@nuxt/icon": "^2.1.1",
-    "@nuxtjs/tailwindcss": "^6.14.0",
-    "nuxt-icon": "^1.0.0-beta.7"
+    "@nuxtjs/tailwindcss": "^6.14.0"
   }
 }

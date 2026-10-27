@@ -1,60 +1,20 @@
-<script setup>
+<script setup lang="ts">
 const services = [
-  { 
-    id: '01', 
-    title: 'Full-Stack Development', 
-    // Price removed
-    desc: 'I build complete, production-ready applications from start to finish. Using Nuxt 3 as my backbone, I handle both the client-side interactivity and the server-side logic.',
-    features: ['Nuxt 3 / Vue 3', 'Tailwind CSS', 'TypeScript', 'Vercel/Netlify Deployment']
-  },
-  { 
-    id: '02', 
-    title: 'Backend & Database', 
-    // Price removed
-    desc: 'A pretty interface is useless without a solid foundation. I design efficient database schemas and write secure API endpoints to manage your data.',
-    features: ['Supabase / MySQL', 'Nuxt Server Routes', 'Node.js / Firebase', 'API Integration']
-  },
-  { 
-    id: '03', 
-    title: 'Frontend Engineering', 
-    // Price removed
-    desc: 'I translate static designs into responsive, interactive web experiences. I focus heavily on performance, accessibility, and pixel-perfect implementation.',
-    features: ['Tailwind CSS', 'Headless UI', 'CSS Animations', 'Mobile Responsive']
-  },
-]
+  { n: "01", title: "Websites and web apps", text: "Responsive, accessible interfaces for brands and products, built with a focus on clarity, speed, and real user needs.", tools: "Vue · Nuxt · React · Tailwind CSS" },
+  { n: "02", title: "Backend and data systems", text: "APIs, authentication, databases, and server-side workflows designed to support reliable product experiences.", tools: "Node.js · NestJS · Fastify · Laravel · PostgreSQL · Supabase" },
+  { n: "03", title: "AI-enabled product work", text: "Thoughtful AI integrations and AI-assisted development workflows, with careful review of generated output and user-facing behavior.", tools: "Gemini · API integrations · human-reviewed AI workflows" },
+  { n: "04", title: "Product refinement", text: "Improve an existing product’s layout, responsiveness, interaction details, and content so the whole experience feels more complete.", tools: "Design systems · performance · responsive polish" },
+];
 </script>
-
 <template>
-  <div class="pt-40 pb-20 px-6 md:px-16">
-     <div class="text-center mb-24">
-        <h1 class="font-serif text-6xl md:text-7xl mb-6">Services</h1>
-        <p class="text-muted">Comprehensive design and development solutions.</p>
-     </div>
-
-     <div class="space-y-8">
-        <div v-for="service in services" :key="service.id" class="group bg-off-black border border-white/5 p-8 md:p-12 rounded-sm hover:border-white/20 transition flex flex-col md:flex-row gap-10">
-           <div class="text-gold-accent font-serif text-4xl opacity-50">{{ service.id }}</div>
-           
-           <div class="flex-1">
-              <h3 class="font-serif text-3xl mb-2">{{ service.title }}</h3>
-              <p class="text-sm text-gray-400 mb-6 max-w-md leading-relaxed">{{ service.desc }}</p>
-              
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                 <div v-for="feature in service.features" :key="feature" class="flex items-center gap-2 text-xs text-muted">
-                    <Icon name="ph:check-circle" class="text-gold-accent flex-shrink-0" /> 
-                    <span>{{ feature }}</span>
-                 </div>
-              </div>
-           </div>
-
-           <div class="flex flex-col justify-end min-w-[200px] border-l border-white/5 pl-0 md:pl-10 pt-10 md:pt-0 border-t md:border-t-0 mt-6 md:mt-0">
-               <NuxtLink to="/contact" class="w-full">
-                   <button class="text-xs uppercase font-bold border border-white/20 px-6 py-3 rounded-full hover:bg-cream hover:text-black transition w-full whitespace-nowrap">
-                       Get Started
-                   </button>
-               </NuxtLink>
-           </div>
-        </div>
-     </div>
-  </div>
+  <main class="page-wrap min-h-screen pt-36 pb-24">
+    <p class="eyebrow">Ways I can help</p><h1 class="font-serif text-6xl md:text-8xl mt-4">Thoughtful work,<br /><span class="italic text-gold-accent">from idea to launch.</span></h1>
+    <p class="text-muted leading-7 max-w-2xl mt-7 mb-14">I work across the full product lifecycle, helping turn an early idea or existing system into software people can use with confidence.</p>
+    <div class="border-t border-white/10">
+      <article v-for="service in services" :key="service.n" class="grid md:grid-cols-[.2fr_.8fr_1fr] gap-5 md:gap-10 py-8 md:py-10 border-b border-white/10 group">
+        <span class="eyebrow">{{ service.n }}</span><h2 class="font-serif text-3xl md:text-4xl group-hover:text-gold-accent transition-colors">{{ service.title }}</h2><div><p class="text-muted leading-7">{{ service.text }}</p><p class="text-xs text-gold-accent mt-4">{{ service.tools }}</p></div>
+      </article>
+    </div>
+    <NuxtLink to="/contact" class="inline-flex mt-12 px-6 py-4 bg-cream text-rich-black text-xs uppercase tracking-widest hover:bg-gold-accent transition">Tell me what you need ↗</NuxtLink>
+  </main>
 </template>

@@ -1,25 +1,13 @@
-<template>
-  <div
-    class="bg-rich-black min-h-screen text-cream selection:bg-cream selection:text-rich-black font-sans"
-  >
-    <NavBar />
-    <NuxtPage />
-    <SiteFooter />
- <button
-      @click="scrollToTop"
-      class="fixed bottom-8 right-8 z-50 animate-bounce p-3 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/30 transition-colors"
-      aria-label="Back to Top"
-    >
-      <Icon
-        class="text-white"
-        name="lucide:arrow-up"
-        size="25"
-      />
-    </button>  
- </div>
-</template>
-<script setup>
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
+<script setup lang="ts">
+const route = useRoute();
+const showChrome = computed(() => !route.path.startsWith("/dashboard"));
+const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 </script>
+<template>
+  <div class="min-h-screen bg-rich-black text-cream">
+    <NavBar v-if="showChrome" />
+    <NuxtPage />
+    <SiteFooter v-if="showChrome" />
+    <button v-if="showChrome" class="fixed bottom-5 right-5 z-40 rounded-full border border-white/15 bg-[#1c1c1c]/85 backdrop-blur p-3 hover:border-gold-accent transition" aria-label="Back to top" @click="scrollToTop">↑</button>
+  </div>
+</template>

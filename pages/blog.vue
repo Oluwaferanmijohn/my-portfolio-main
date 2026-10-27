@@ -1,20 +1,9 @@
 <template>
-  <div class="pt-40 pb-20 px-6 md:px-16">
-      <h1 class="font-serif text-6xl mb-16 text-center">Journal</h1>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-         <article v-for="i in 3" :key="i" class="group cursor-pointer">
-            <div class="aspect-video bg-off-black mb-6 overflow-hidden rounded-sm">
-               <img :src="`https://source.unsplash.com/random/800x600?tech,dark&sig=${i}`" class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition duration-500" />
-            </div>
-            <div class="flex items-center gap-4 text-[10px] text-muted uppercase tracking-widest mb-3">
-               <span>Oct 24, 2023</span>
-               <span class="w-1 h-1 bg-gold-accent rounded-full"></span>
-               <span>Design</span>
-            </div>
-            <h3 class="font-serif text-2xl mb-3 group-hover:text-gold-accent transition">The Importance of Dark Mode in Modern Web Design</h3>
-            <p class="text-xs text-muted leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore...</p>
-         </article>
-      </div>
-  </div>
+  <main class="page-wrap min-h-[70vh] pt-36 pb-24">
+    <p class="eyebrow">Notes and ideas</p><h1 class="font-serif text-6xl md:text-8xl mt-4">Thinking <span class="italic text-gold-accent">out loud.</span></h1>
+    <p class="text-muted max-w-2xl leading-7 mt-7">I’m collecting notes on building software, working across the product stack, and using AI tools with care. New writing will appear here.</p>
+    <div class="mt-14 grid md:grid-cols-3 gap-4">
+      <article v-for="note in ['Building for the person using it','Working across the whole stack','AI as a tool in the development process']" :key="note" class="border border-white/10 bg-off-black p-6 min-h-40"><p class="eyebrow">On my mind</p><h2 class="font-serif text-2xl mt-4">{{ note }}</h2></article>
+    </div>
+  </main>
 </template>

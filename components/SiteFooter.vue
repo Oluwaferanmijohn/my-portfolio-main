@@ -1,80 +1,8 @@
 <template>
-  <footer class="relative pt-32 pb-10 overflow-hidden bg-rich-black text-cream">
-    <div
-      class="flex justify-center items-center px-4 md:px-10 opacity-30 text-gold-accent font-serif italic text-4xl md:text-8xl whitespace-nowrap overflow-hidden mb-10 select-none"
-    >
-      <!-- <span>Oluwaferanmi</span> -->
-      <div
-        class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-10 overflow-hidden grayscale opacity-50 border border-white/10"
-      >
-        <img src="../assets/image/7.png " class="w-full h-full object-cover" />
-      </div>
-      <!-- <span>John</span> -->
-    </div>
-
-    <div class="text-center mt-20 mb-32">
-      <h2 class="font-serif text-5xl md:text-7xl mb-4">
-        Let's Bring your <br /><span class="italic text-cream"
-          >Website idea To life..</span
-        >
-      </h2>
-      <p class="text-muted text-sm mb-10">
-        Premium web design and development services tailored to your needs.
-      </p>
-      <NuxtLink
-        to="/contact"
-        class="bg-cream text-rich-black px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-white transition hover:scale-105 inline-block"
-      >
-        Let's Talk
-      </NuxtLink>
-    </div>
-
-    <div
-      class="border-t border-white/10 pt-10 px-10 flex flex-col md:flex-row justify-between items-center text-xs text-muted gap-6"
-    >
-      <div class="flex gap-4">
-        <a
-          href="https://www.instagram.com/drealphenry/"
-          target="_blank"
-          class="hover:text-white transition"
-          >INSTAGRAM</a
-        >
-        <a href="#" class="hover:text-white transition">TWITTER</a>
-        <a
-          href="https://www.tiktok.com/@drealphenry"
-          target="_blank"
-          class="hover:text-white transition"
-          >TIKTOK</a
-        >
-        <a href="#" class="hover:text-white transition">FACEBOOK</a>
-        <a href="#" class="hover:text-white transition">LINKEDIN</a>
-      </div>
-      <div class="flex gap-8">
-        <NuxtLink to="/" class="hover:text-white transition">HOME</NuxtLink>
-        <NuxtLink to="/services" class="hover:text-white transition"
-          >SERVICES</NuxtLink
-        >
-        <NuxtLink to="/about" class="hover:text-white transition"
-          >ABOUT</NuxtLink
-        >
-      </div>
-      <!-- <button
-        @click="scrollToTop"
-        class="p-3 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-between gap-4 md:gap-8 shadow-lg"
-      >
-        <Icon
-          class="text-white"
-          name="lucide:arrow-up"
-          size="25"
-          title="Go Up"
-        />
-      </button> -->
+  <footer class="bg-off-black/60 border-t border-white/10">
+    <div class="page-wrap py-16 md:py-20 flex flex-col md:flex-row gap-8 justify-between items-start md:items-end">
+      <div><p class="eyebrow">Available for good work</p><h2 class="font-serif text-4xl md:text-5xl mt-3">Let’s build something<br /><span class="italic text-gold-accent">worth using.</span></h2><NuxtLink to="/contact" class="inline-flex items-center gap-2 mt-7 border-b border-gold-accent pb-2 text-xs uppercase tracking-widest">Get in touch ↗</NuxtLink></div>
+      <div class="flex flex-col md:items-end gap-4 text-xs text-muted"><a href="mailto:oluwatoyinferanmijohn@gmail.com" class="hover:text-gold-accent">oluwatoyinferanmijohn@gmail.com</a><div class="flex gap-5 uppercase tracking-widest"><NuxtLink to="/work" class="hover:text-cream">Work</NuxtLink><NuxtLink to="/about" class="hover:text-cream">About</NuxtLink><NuxtLink to="/contact" class="hover:text-cream">Contact</NuxtLink></div><p>© {{ new Date().getFullYear() }} Oluwafernmi. Built with care.</p></div>
     </div>
   </footer>
 </template>
-
-<script setup>
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-</script>

@@ -1,172 +1,33 @@
-<script setup>
-import { ref } from "vue";
-// Importing the image to prevent 404 errors
-import contactImg from "../assets/image/5.png"; 
-
-const form = ref({
-  name: "",
-  email: "",
-  message: "",
-  // This is a honeypot field to prevent spam bots
-  botcheck: false,
-});
-
-const status = ref(""); // 'loading', 'success', 'error', or ''
-
-const handleSubmit = async () => {
-  status.value = "loading";
-
-  try {
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        // YOUR ACCESS KEY
-        access_key: "d5ca003b-e9fc-4c54-a229-94a461d8edb9",
-        name: form.value.name,
-        email: form.value.email,
-        message: form.value.message,
-        botcheck: form.value.botcheck,
-      }),
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-      status.value = "success";
-      // Reset form
-      form.value = { name: "", email: "", message: "", botcheck: false };
-      // Remove success message after 5 seconds
-      setTimeout(() => (status.value = ""), 5000);
-    } else {
-      status.value = "error";
-    }
-  } catch (error) {
-    status.value = "error";
-  }
-};
+<script setup lang="ts">
+const { track } = usePortfolioAnalytics();
+const form = reactive({ name: "", email: "", subject: "", message: "", website: "" });
+const busy = ref(false); const sent = ref(false); const error = ref("");
+async function submit() {
+  busy.value = true; error.value = "";
+  try { await $fetch("/api/contact", { method: "POST", body: form }); sent.value = true; track("contact_sent"); }
+  catch (e: any) { error.value = e?.data?.statusMessage || "Your message could not be sent. Please email me directly."; }
+  busy.value = false;
+}
 </script>
-
 <template>
-  <div class="pt-32 pb-20 px-6 md:px-16 min-h-screen">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-      
-      <div class="relative h-[700px] w-full hidden lg:block rounded-sm overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-t from-rich-black via-transparent to-transparent z-10"></div>
-        <img
-          :src="contactImg"
-          class="w-full h-full object-cover grayscale opacity-80"
-          alt="Contact Portrait"
-        />
-      </div>
-
-      <div>
-        <span class="text-xs uppercase tracking-widest text-muted mb-4 block">Contact</span>
-        <h1 class="font-serif text-5xl md:text-6xl mb-12">
-          Let's get in <span class="italic text-gold-accent">touch.</span>
-        </h1>
-
-        <form @submit.prevent="handleSubmit" class="space-y-6 mb-16">
-          
-          <input type="checkbox" v-model="form.botcheck" class="hidden" style="display: none;">
-
-          <div>
-            <label class="block text-xs uppercase tracking-widest text-muted mb-2">Name</label>
-            <input
-              type="text"
-              v-model="form.name"
-              required
-              class="w-full bg-off-black border border-white/10 p-4 text-cream focus:border-gold-accent focus:outline-none transition rounded-sm placeholder-white/20"
-              placeholder="Your Name"
-            />
-          </div>
-
-          <div>
-            <label class="block text-xs uppercase tracking-widest text-muted mb-2">Email</label>
-            <input
-              type="email"
-              v-model="form.email"
-              required
-              class="w-full bg-off-black border border-white/10 p-4 text-cream focus:border-gold-accent focus:outline-none transition rounded-sm placeholder-white/20"
-              placeholder="email@example.com"
-            />
-          </div>
-
-          <div>
-            <label class="block text-xs uppercase tracking-widest text-muted mb-2">Message</label>
-            <textarea
-              v-model="form.message"
-              rows="6"
-              required
-              class="w-full bg-off-black border border-white/10 p-4 text-cream focus:border-gold-accent focus:outline-none transition rounded-sm placeholder-white/20"
-              placeholder="How can I help you?"
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            :disabled="status === 'loading'"
-            class="w-full bg-cream text-rich-black py-4 font-bold uppercase tracking-widest text-xs hover:bg-white transition disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
-          >
-            <span v-if="status === 'loading'">Sending...</span>
-            <span v-else>Send Message</span>
-          </button>
-
-          <div v-if="status === 'success'" class="p-4 bg-green-500/10 border border-green-500/20 text-green-400 text-sm text-center">
-            Message sent successfully! I'll get back to you soon.
-          </div>
-          <div v-if="status === 'error'" class="p-4 bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center">
-            Something went wrong. Please try again later.
-          </div>
-
-        </form>
-
-        <div class="grid grid-cols-2 gap-4">
-          <a
-            href="mailto:oluwatoyinferanmijohn@gmail.com"
-            class="p-4 border border-white/10 rounded-sm flex items-center gap-4 hover:bg-off-black transition group"
-          >
-            <Icon
-              name="ph:envelope-simple"
-              class="text-xl text-muted group-hover:text-gold-accent"
-            />
-            <span class="text-xs font-bold uppercase truncate">oluwatoyinferanmijohn@gmail.com</span>
-          </a>
-          <a
-            href="https://twitter.com/yourhandle"
-            target="_blank"
-            class="p-4 border border-white/10 rounded-sm flex items-center gap-4 hover:bg-off-black transition group"
-          >
-            <Icon
-              name="ph:twitter-logo"
-              class="text-xl text-muted group-hover:text-gold-accent"
-            />
-            <span class="text-xs font-bold uppercase">Follow Me</span>
-          </a>
-          <a
-            href="https://linkedin.com/in/yourhandle"
-            target="_blank"
-            class="p-4 border border-white/10 rounded-sm flex items-center gap-4 hover:bg-off-black transition group"
-          >
-            <Icon
-              name="ph:linkedin-logo"
-              class="text-xl text-muted group-hover:text-gold-accent"
-            />
-            <span class="text-xs font-bold uppercase">Connect</span>
-          </a>
-          <a
-            href="https://instagram.com/yourhandle"
-            target="_blank"
-            class="p-4 border border-white/10 rounded-sm flex items-center gap-4 hover:bg-off-black transition group"
-          >
-            <Icon
-              name="ph:instagram-logo"
-              class="text-xl text-muted group-hover:text-gold-accent"
-            />
-            <span class="text-xs font-bold uppercase">Gallery</span>
-          </a>
-        </div>
-      </div>
+  <main class="page-wrap min-h-screen pt-36 pb-24">
+    <div class="grid lg:grid-cols-[.8fr_1.2fr] gap-12 lg:gap-24">
+      <section><p class="eyebrow">Contact</p><h1 class="font-serif text-6xl md:text-8xl mt-5">Let’s talk<br /><span class="italic text-gold-accent">about it.</span></h1><p class="text-muted leading-7 mt-8 max-w-md">Have a project, role, or idea you’d like to discuss? Send a note and I’ll get back to you.</p><a href="mailto:oluwatoyinferanmijohn@gmail.com" class="inline-flex items-center gap-3 border-b border-gold-accent pb-3 mt-8 hover:text-gold-accent"><span aria-hidden="true">✉</span> oluwatoyinferanmijohn@gmail.com</a></section>
+      <form class="bg-off-black border border-white/10 p-6 md:p-10" @submit.prevent="submit">
+        <div v-if="sent" class="py-12"><p class="eyebrow">Message received</p><h2 class="font-serif text-4xl mt-4">Thanks for reaching out.</h2><p class="text-muted mt-4">Your message is saved. I’ll be in touch soon.</p><button type="button" class="text-gold-accent mt-7" @click="sent=false">Send another</button></div>
+        <template v-else>
+          <p class="eyebrow mb-7">Write me a message</p>
+          <label class="block text-sm mb-5">Your name<input v-model="form.name" required maxlength="120" autocomplete="name" class="field" /></label>
+          <label class="block text-sm mb-5">Email address<input v-model="form.email" required type="email" maxlength="254" autocomplete="email" class="field" /></label>
+          <label class="block text-sm mb-5">Subject<input v-model="form.subject" maxlength="200" class="field" /></label>
+          <label class="block text-sm mb-5">What’s on your mind?<textarea v-model="form.message" required minlength="5" maxlength="10000" rows="6" class="field resize-y" /></label>
+          <label class="hidden" aria-hidden="true">Leave this empty<input v-model="form.website" tabindex="-1" autocomplete="off" /></label>
+          <p v-if="error" class="text-red-300 text-sm mb-4">{{ error }}</p>
+          <button class="bg-cream text-black px-7 py-4 uppercase tracking-widest text-xs disabled:opacity-50" :disabled="busy">{{ busy ? 'Sending…' : 'Send message' }} ↗</button>
+          <p class="text-xs text-muted mt-5">Prefer email? <a href="mailto:oluwatoyinferanmijohn@gmail.com" class="text-cream underline underline-offset-4">Write directly.</a></p>
+        </template>
+      </form>
     </div>
-  </div>
+  </main>
 </template>
+<style scoped>.field { display:block; width:100%; margin-top:.6rem; padding:.9rem 1rem; color:#f5f5f0; background:#141414; border:1px solid #ffffff24; font:inherit; font-size:.9rem; } .field:focus { border-color:#d4af37; outline:none; }</style>
