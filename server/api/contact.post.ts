@@ -1,4 +1,5 @@
-import { serverSupabaseClient } from "#supabase/server";
+import { serverSupabaseClient } from "#supabase/server/serverSupabaseClient";
+import { notifyPortfolioAdmin } from "../utils/push";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody<{ name?: string; email?: string; subject?: string; message?: string; website?: string }>(event);
@@ -32,6 +33,7 @@ export default defineEventHandler(async (event) => {
       // The message is already saved in the Supabase inbox for dashboard follow-up.
     }
   }
+  await notifyPortfolioAdmin(event, subject || "Portfolio enquiry", name);
   return { ok: true };
 });
 

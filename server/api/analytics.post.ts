@@ -1,4 +1,4 @@
-import { serverSupabaseClient } from "#supabase/server";
+import { serverSupabaseClient } from "#supabase/server/serverSupabaseClient";
 
 const allowed = new Set(["page_view", "cv_click", "contact_sent"]);
 

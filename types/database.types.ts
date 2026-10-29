@@ -15,6 +15,8 @@ type MessageRow = {
   created_at: string; read_at: string | null;
 };
 type SettingsRow = { key: string; value: string; updated_at: string };
+type ArticleRow = { id: string; slug: string; title: string; excerpt: string; content: string; category: string; image_url: string; image_urls: string[]; status: "Draft" | "Published"; published_at: string | null; created_at: string; updated_at: string };
+type PushSubscriptionRow = { id: string; user_id: string; endpoint: string; subscription: Json; created_at: string; updated_at: string };
 
 export type Database = {
   public: {
@@ -23,6 +25,8 @@ export type Database = {
       portfolio_events: { Row: EventRow; Insert: Omit<EventRow, "id" | "created_at" | "event_day"> & Partial<Pick<EventRow, "id" | "created_at" | "event_day">>; Update: Partial<EventRow>; Relationships: [] };
       contact_messages: { Row: MessageRow; Insert: Omit<MessageRow, "id" | "created_at" | "read_at"> & Partial<Pick<MessageRow, "id" | "created_at" | "read_at">>; Update: Partial<MessageRow>; Relationships: [] };
       portfolio_site_settings: { Row: SettingsRow; Insert: SettingsRow; Update: Partial<SettingsRow>; Relationships: [] };
+      portfolio_articles: { Row: ArticleRow; Insert: Omit<ArticleRow, "id" | "created_at" | "updated_at"> & Partial<Pick<ArticleRow, "id" | "created_at" | "updated_at">>; Update: Partial<ArticleRow>; Relationships: [] };
+      portfolio_push_subscriptions: { Row: PushSubscriptionRow; Insert: Omit<PushSubscriptionRow, "id" | "created_at" | "updated_at"> & Partial<Pick<PushSubscriptionRow, "id" | "created_at" | "updated_at">>; Update: Partial<PushSubscriptionRow>; Relationships: [] };
     };
     Views: Record<string, never>;
     Functions: {

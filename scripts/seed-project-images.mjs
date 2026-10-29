@@ -27,3 +27,15 @@ for (const [slug, fileName] of images) {
   if (updateError) throw new Error(`Uploaded ${fileName}, but could not update its project record: ${updateError.message}`);
   console.log(`Uploaded ${fileName} for ${slug}.`);
 }
+
+const articleImage = await readFile(new URL("../public/images/article-ai-cover.jpg", import.meta.url));
+const articlePath = "seed/articles/using-ai-with-intention-cover.jpg";
+const { error: articleUploadError } = await supabase.storage.from("portfolio-media").upload(articlePath, articleImage, {
+  contentType: "image/jpeg",
+  upsert: true,
+});
+if (articleUploadError) throw new Error(`Could not upload the sample article cover: ${articleUploadError.message}`);
+const { data: articlePublicFile } = supabase.storage.from("portfolio-media").getPublicUrl(articlePath);
+const { error: articleUpdateError } = await supabase.from("portfolio_articles").update({ image_url: articlePublicFile.publicUrl }).eq("slug", "using-ai-with-intention");
+if (articleUpdateError) throw new Error(`Uploaded the article cover, but could not update its article record: ${articleUpdateError.message}`);
+console.log("Uploaded the sample article cover.");

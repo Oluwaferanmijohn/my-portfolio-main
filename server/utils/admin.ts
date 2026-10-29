@@ -1,11 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 import type { H3Event } from "h3";
-import { serverSupabaseUser } from "#supabase/server";
+import { serverSupabaseUser } from "#supabase/server/serverSupabaseUser";
 
 export async function requirePortfolioAdmin(event: H3Event) {
   const config = useRuntimeConfig(event);
   const user = await serverSupabaseUser(event);
-  if (!user || !config.adminUserId || user.id !== config.adminUserId) {
+  // serverSupabaseUser returns JWT claims; `sub` is the Supabase Auth user UUID.
+  const userId = user?.sub;
+  if (!userId || !config.adminUserId || userId !== config.adminUserId) {
     throw createError({ statusCode: 403, statusMessage: "Administrator access required" });
   }
   if (!config.supabaseServiceRoleKey || !process.env.SUPABASE_URL) {

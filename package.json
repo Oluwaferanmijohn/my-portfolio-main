@@ -11,14 +11,16 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.117.3",
     "@nuxtjs/supabase": "^2.0.1",
+    "@supabase/supabase-js": "^2.117.3",
     "nuxt": "^4.2.1",
     "typescript": "^5.9.3",
     "vue": "^3.5.25",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.3",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.14.0"
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "@types/web-push": "^3.6.4"
   }
 }

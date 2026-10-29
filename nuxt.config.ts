@@ -11,11 +11,14 @@ export default defineNuxtConfig({
     supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || "",
     adminUserId: process.env.ADMIN_USER_ID || "",
     resendApiKey: process.env.RESEND_API_KEY || "",
+    vapidPrivateKey: process.env.VAPID_PRIVATE_KEY || "",
+    vapidSubject: process.env.VAPID_SUBJECT || "mailto:oluwatoyinferanmijohn@gmail.com",
     contactEmail: process.env.CONTACT_EMAIL || "oluwatoyinferanmijohn@gmail.com",
     fromEmail: process.env.FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "",
       cvUrl: process.env.NUXT_PUBLIC_CV_URL || "",
+      vapidPublicKey: process.env.VAPID_PUBLIC_KEY || "",
     },
   },
   icon: { serverBundle: { collections: ["simple-icons", "logos"] } },
@@ -27,6 +30,8 @@ export default defineNuxtConfig({
         { name: "theme-color", content: "#141414" },
       ],
       link: [
+        { rel: "manifest", href: "/manifest.webmanifest" },
+        { rel: "apple-touch-icon", href: "/icons/icon-192.png" },
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
         { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" },

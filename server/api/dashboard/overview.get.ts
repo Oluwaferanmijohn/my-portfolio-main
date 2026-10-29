@@ -18,5 +18,6 @@ export default defineEventHandler(async (event) => {
     contacts: messages.count || 0,
     visitsToday: visitsToday.count || 0,
     messages: messages.data || [],
+    unreadMessages: (messages.data || []).filter((message) => !message.read_at).length,
   };
 });
