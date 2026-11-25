@@ -8,6 +8,7 @@ const { data: projects, refresh: refreshProjects } = await useFetch<PortfolioPro
 const { data: overview, refresh: refreshOverview } = await useFetch<any>("/api/dashboard/overview", { default: () => ({ projectCount: 0, visits: 0, visitsToday: 0, cvClicks: 0, contacts: 0, unreadMessages: 0, messages: [] }) });
 const { data: cvSettings, refresh: refreshCv } = await useFetch<{ cvUrl: string }>("/api/settings/cv", { default: () => ({ cvUrl: "" }) });
 const { data: articles, refresh: refreshArticles } = await useFetch<PortfolioArticle[]>("/api/dashboard/articles", { default: () => [] });
+const totalArticleReads = computed(() => articles.value?.reduce((total, article) => total + (article.read_count || 0), 0) || 0);
 const selected = ref<PortfolioProject | null>(null);
 const technologies = ref("");
 const saving = ref(false);
@@ -29,6 +30,7 @@ let installPrompt: any = null;
 let inboxRefreshTimer: ReturnType<typeof setInterval> | undefined;
 function edit(project?: PortfolioProject) { selected.value = project || null; Object.assign(form, blank(), project || {}); technologies.value = project?.technologies.join(", ") || ""; }
 function editArticle(article?: PortfolioArticle) { selectedArticle.value = article || null; Object.assign(articleForm, blankArticle(), article || {}); }
+function refreshInbox() { void refreshOverview(); }
 async function save() {
   saving.value = true; notice.value = "";
   try {
@@ -130,7 +132,7 @@ async function clearCv() {
 async function signOut() { await supabase.auth.signOut(); await navigateTo("/dashboard/login"); }
 watch(user, async (value) => { if (!value) await navigateTo("/dashboard/login"); });
 onMounted(() => {
-  void refreshOverview(); void refreshArticles(); void push.refresh();
+  void refreshOverview(); void refreshArticles(); void push.refresh().catch((error) => { inboxNotice.value = error?.data?.statusMessage || "Could not check notification devices."; });
   window.addEventListener("beforeinstallprompt", (event: Event) => { event.preventDefault(); installPrompt = event; installAvailable.value = true; });
   inboxRefreshTimer = setInterval(() => { void refreshOverview(); }, 30_000);
 });
@@ -147,11 +149,11 @@ onUnmounted(() => { if (inboxRefreshTimer) clearInterval(inboxRefreshTimer); });
       <div class="flex items-center gap-3"><label class="border border-white/20 px-4 py-3 text-xs uppercase tracking-widest cursor-pointer hover:border-gold-accent" :class="uploadingCv ? 'opacity-50 pointer-events-none' : ''">{{ uploadingCv ? 'Uploading…' : 'Upload PDF' }}<input type="file" accept="application/pdf,.pdf" class="hidden" :disabled="uploadingCv" @change="uploadCv" /></label><button v-if="cvSettings?.cvUrl" class="text-xs text-red-300 px-3 py-2" @click="clearCv">Remove CV</button></div>
     </section>
     <section class="max-w-7xl mx-auto bg-off-black border border-white/10 p-5 md:p-7 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-5">
-      <div><p class="eyebrow">Phone notifications</p><h2 class="font-serif text-2xl mt-2">Get a push alert for new messages</h2><p class="text-sm text-muted mt-2 max-w-2xl">Allow notifications on this device. When someone sends the contact form, their message is saved to your dashboard and an alert can be sent here.</p><p v-if="inboxNotice" class="text-sm text-gold-accent mt-3">{{ inboxNotice }}</p><p class="text-xs text-muted mt-3">Install this site on your phone first, then enable notifications here. On iPhone, open it in Safari, tap Share, then Add to Home Screen.</p><p v-if="!push.supported.value" class="text-xs text-muted mt-2">This browser does not support web push. Install the PWA on a supported phone browser and try again.</p></div>
+      <div><p class="eyebrow">Phone notifications</p><h2 class="font-serif text-2xl mt-2">Get a push alert for new messages</h2><p class="text-sm text-muted mt-2 max-w-2xl">Allow notifications on this device. When someone sends the contact form, their message is saved to your dashboard and an alert can be sent here.</p><p class="text-xs text-gold-accent mt-3">{{ push.deviceCount.value }} notification {{ push.deviceCount.value === 1 ? 'device' : 'devices' }} registered · {{ push.enabled.value ? 'this device is connected' : 'this device is not connected' }}</p><p v-if="inboxNotice" class="text-sm text-gold-accent mt-3">{{ inboxNotice }}</p><p class="text-xs text-muted mt-3">Install this site on your phone first, then enable notifications here. On iPhone, open it in Safari, tap Share, then Add to Home Screen.</p><p v-if="!push.supported.value" class="text-xs text-muted mt-2">This browser does not support web push. Install the PWA on a supported phone browser and try again.</p></div>
       <div class="flex flex-wrap gap-2 shrink-0"><button v-if="push.enabled.value" class="border border-white/20 px-4 py-3 text-xs uppercase tracking-widest" @click="testPush">Send test alert</button><button v-if="push.supported.value" class="px-5 py-3 text-xs uppercase tracking-widest" :class="push.enabled.value ? 'border border-gold-accent text-gold-accent' : 'bg-cream text-rich-black'" @click="togglePush">{{ push.enabled.value ? 'Disable notifications' : 'Enable notifications' }}</button></div>
     </section>
-    <section class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 mb-10">
-      <article v-for="metric in [{label:'Projects',value:overview?.projectCount},{label:'Articles',value:articles?.length},{label:'Visits',value:overview?.visits},{label:'Visits today',value:overview?.visitsToday},{label:'CV clicks',value:overview?.cvClicks},{label:'Unread messages',value:overview?.unreadMessages}]" :key="metric.label" class="bg-off-black border border-white/10 p-5"><p class="text-muted text-xs uppercase tracking-widest">{{ metric.label }}</p><p class="font-serif text-3xl mt-3">{{ metric.value || 0 }}</p></article>
+    <section class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-3 mb-10">
+      <article v-for="metric in [{label:'Projects',value:overview?.projectCount},{label:'Articles',value:articles?.length},{label:'Article reads',value:totalArticleReads},{label:'Visits',value:overview?.visits},{label:'Visits today',value:overview?.visitsToday},{label:'CV clicks',value:overview?.cvClicks},{label:'Unread messages',value:overview?.unreadMessages}]" :key="metric.label" class="bg-off-black border border-white/10 p-5"><p class="text-muted text-xs uppercase tracking-widest">{{ metric.label }}</p><p class="font-serif text-3xl mt-3">{{ metric.value || 0 }}</p></article>
     </section>
     <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-8 items-start">
       <section class="bg-off-black border border-white/10 p-5 md:p-7">
@@ -185,7 +187,7 @@ onUnmounted(() => { if (inboxRefreshTimer) clearInterval(inboxRefreshTimer); });
       </form>
     </div>
     <section id="inbox" class="max-w-7xl mx-auto bg-off-black border border-white/10 p-5 md:p-7 mt-8 scroll-mt-8">
-      <div class="flex flex-wrap items-end justify-between gap-3 mb-5"><div><p class="eyebrow">Contact inbox</p><h2 class="font-serif text-3xl mt-2">Messages <span class="text-gold-accent">({{ overview?.unreadMessages || 0 }} unread)</span></h2><p class="text-sm text-muted mt-2">Every contact form submission is saved here; email is sent as an extra notification.</p></div><button class="border border-white/20 px-3 py-2 text-xs uppercase tracking-widest" @click="refreshOverview">Refresh inbox</button></div>
+      <div class="flex flex-wrap items-end justify-between gap-3 mb-5"><div><p class="eyebrow">Contact inbox</p><h2 class="font-serif text-3xl mt-2">Messages <span class="text-gold-accent">({{ overview?.unreadMessages || 0 }} unread)</span></h2><p class="text-sm text-muted mt-2">Every contact form submission is saved here; email is sent as an extra notification.</p></div><button class="border border-white/20 px-3 py-2 text-xs uppercase tracking-widest" @click="refreshInbox">Refresh inbox</button></div>
       <p v-if="!overview?.messages?.length" class="text-muted text-sm border-t border-white/10 pt-5">No messages yet. New contact form submissions will appear here.</p>
       <article v-for="message in overview?.messages" :key="message.id" class="border-t border-white/10 py-5 grid md:grid-cols-[1fr_auto] gap-4">
         <div><div class="flex flex-wrap items-center gap-x-3 gap-y-1"><span class="text-xs uppercase tracking-widest" :class="message.read_at ? 'text-muted' : 'text-gold-accent'">{{ message.read_at ? 'Read' : 'New' }}</span><p class="font-medium">{{ message.name }} <span class="text-muted font-normal">· <a :href="`mailto:${message.email}`" class="hover:text-gold-accent">{{ message.email }}</a></span></p><time class="text-xs text-muted">{{ new Date(message.created_at).toLocaleString() }}</time></div><p class="text-sm text-gold-accent mt-3">{{ message.subject || 'Portfolio enquiry' }}</p><p class="text-sm text-muted mt-2 whitespace-pre-wrap leading-6">{{ message.message }}</p></div>
@@ -198,7 +200,7 @@ onUnmounted(() => { if (inboxRefreshTimer) clearInterval(inboxRefreshTimer); });
         <p v-if="!articles?.length" class="text-sm text-muted">Articles load after applying the articles migration.</p>
         <article v-for="article in articles" :key="article.id" class="border-t border-white/10 py-4 flex items-start gap-3">
           <img v-if="article.image_url" :src="article.image_url" class="w-14 h-14 object-cover bg-black" alt="" />
-          <div class="flex-1 min-w-0"><p class="font-serif text-xl">{{ article.title }}</p><p class="text-xs text-muted mt-1">{{ article.category }} · {{ article.status }}</p><NuxtLink v-if="article.status === 'Published'" :to="`/blog/${article.slug}`" class="inline-block text-xs text-gold-accent mt-2">Read article ↗</NuxtLink></div>
+          <div class="flex-1 min-w-0"><p class="font-serif text-xl">{{ article.title }}</p><p class="text-xs text-muted mt-1">{{ article.category }} · {{ article.status }} · {{ article.read_count || 0 }} reads</p><NuxtLink v-if="article.status === 'Published'" :to="`/blog/${article.slug}`" class="inline-block text-xs text-gold-accent mt-2">Read article ↗</NuxtLink></div>
           <button class="text-xs text-gold-accent" @click="editArticle(article)">Edit</button><button class="text-xs text-red-300" @click="removeArticle(article)">Delete</button>
         </article>
         <NuxtLink to="/blog" class="inline-block border-t border-white/10 pt-4 mt-2 text-xs uppercase tracking-widest text-gold-accent">Open public blog ↗</NuxtLink>

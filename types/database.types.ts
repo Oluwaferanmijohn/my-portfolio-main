@@ -15,7 +15,7 @@ type MessageRow = {
   created_at: string; read_at: string | null;
 };
 type SettingsRow = { key: string; value: string; updated_at: string };
-type ArticleRow = { id: string; slug: string; title: string; excerpt: string; content: string; category: string; image_url: string; image_urls: string[]; status: "Draft" | "Published"; published_at: string | null; created_at: string; updated_at: string };
+type ArticleRow = { id: string; slug: string; title: string; excerpt: string; content: string; category: string; image_url: string; image_urls: string[]; status: "Draft" | "Published"; read_count: number; published_at: string | null; created_at: string; updated_at: string };
 type PushSubscriptionRow = { id: string; user_id: string; endpoint: string; subscription: Json; created_at: string; updated_at: string };
 
 export type Database = {
@@ -33,6 +33,7 @@ export type Database = {
       keep_alive: { Args: Record<string, never>; Returns: Json };
       record_portfolio_event: { Args: { p_event_type: string; p_path: string; p_session_id: string }; Returns: undefined };
       submit_portfolio_message: { Args: { p_name: string; p_email: string; p_subject: string; p_message: string }; Returns: string };
+      record_portfolio_article_read: { Args: { p_slug: string }; Returns: number };
     };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;

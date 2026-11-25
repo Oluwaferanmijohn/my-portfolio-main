@@ -8,6 +8,7 @@ export interface PortfolioArticle {
   image_url: string;
   image_urls: string[];
   status: "Draft" | "Published";
+  read_count: number;
   published_at: string | null;
   created_at: string;
   updated_at: string;

@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import webpush from "web-push";
 import type { H3Event } from "h3";
+import { deliverPushNotifications } from "./push-delivery";
 
 export async function notifyPortfolioAdmin(event: H3Event, subject: string, senderName: string): Promise<boolean> {
   const config = useRuntimeConfig(event);
@@ -15,14 +16,9 @@ export async function notifyPortfolioAdmin(event: H3Event, subject: string, send
     url: "/dashboard",
     tag: "portfolio-message",
   });
-  const results = await Promise.allSettled(subscriptions.map(async ({ id, subscription }) => {
-    try {
-      await webpush.sendNotification(subscription, payload, { TTL: 60 * 60 });
-    } catch (pushError: any) {
-      if (pushError?.statusCode === 404 || pushError?.statusCode === 410) {
-        await supabase.from("portfolio_push_subscriptions").delete().eq("id", id);
-      }
-    }
-  }));
-  return results.some((result) => result.status === "fulfilled");
+  return deliverPushNotifications(
+    subscriptions,
+    async ({ subscription }) => { await webpush.sendNotification(subscription, payload, { TTL: 60 * 60 }); },
+    async ({ id }) => { await supabase.from("portfolio_push_subscriptions").delete().eq("id", id); },
+  );
 }

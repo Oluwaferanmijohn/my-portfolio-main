@@ -20,6 +20,7 @@ const dateLabel = (value: string | null) => value ? new Date(value).toLocaleDate
           <h2 class="font-serif text-3xl mt-3 group-hover:text-gold-accent transition-colors">{{ article.title }}</h2>
           <p class="text-sm text-muted leading-6 mt-3">{{ article.excerpt }}</p>
           <span class="inline-block mt-5 text-xs uppercase tracking-widest text-gold-accent">Read article ↗</span>
+          <span class="block mt-3 text-xs text-muted">{{ article.read_count || 0 }} reads</span>
         </NuxtLink>
       </article>
     </div>

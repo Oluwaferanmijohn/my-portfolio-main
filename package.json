@@ -2,8 +2,12 @@
   "name": "my-portfolio",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0"
+  },
   "scripts": {
     "build": "nuxt build",
+    "typecheck": "nuxi typecheck",
     "dev": "nuxt dev --port 3002",
     "seed:images": "node --env-file=.env scripts/seed-project-images.mjs",
     "generate": "nuxt generate",
@@ -11,16 +15,18 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/supabase": "^2.0.1",
+    "@nuxt/kit": "^4.7.0",
+    "@nuxtjs/supabase": "^2.1.0",
     "@supabase/supabase-js": "^2.117.3",
-    "nuxt": "^4.2.1",
+    "nuxt": "^4.7.0",
     "typescript": "^5.9.3",
     "vue": "^3.5.25",
-    "vue-router": "^4.6.3",
+    "vue-router": "^5.4.0",
     "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.14.0",
-    "@types/web-push": "^3.6.4"
+    "@types/web-push": "^3.6.4",
+    "vue-tsc": "^3.3.14"
   }
 }

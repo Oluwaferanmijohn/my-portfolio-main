@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2026-10-27",
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/supabase"],
+  postcss: { plugins: { "tailwindcss/nesting": false } },
   css: ["~/assets/css/main.css"],
   supabase: {
     redirect: false,
@@ -21,7 +22,6 @@ export default defineNuxtConfig({
       vapidPublicKey: process.env.VAPID_PUBLIC_KEY || "",
     },
   },
-  icon: { serverBundle: { collections: ["simple-icons", "logos"] } },
   app: {
     head: {
       title: "Oluwafernmi | Software Engineer",
