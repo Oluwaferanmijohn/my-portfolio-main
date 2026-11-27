@@ -20,7 +20,7 @@ if (error.value) {
     statusCode,
     statusMessage: statusCode === 404
       ? "Article not found"
-      : "Articles are unavailable. Apply the articles and readership migrations, then try again.",
+      : "This article is temporarily unavailable. Please try again later.",
   });
 }
 watch(article, (value) => { if (value) readCount.value = value.read_count || 0; });

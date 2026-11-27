@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     slug, title, category: String(body.category || "Software").slice(0, 100),
     summary: String(body.summary || "").slice(0, 3000), concept: String(body.concept || "").slice(0, 3000),
     ai_experience: String(body.ai_experience || "").slice(0, 3000), status: body.status || "Complete",
-    image_url: String(body.image_url || "").slice(0, 1000), project_url: String(body.project_url || "").slice(0, 1000),
+    image_url: String(body.image_url || "").slice(0, 1000), preview_is_concept: body.preview_is_concept === true, project_url: String(body.project_url || "").slice(0, 1000),
     technologies: Array.isArray(body.technologies) ? body.technologies.map(String).slice(0, 40) : [],
     featured: Boolean(body.featured), sort_order: Number(body.sort_order) || 0, updated_at: new Date().toISOString(),
   };

@@ -8,6 +8,7 @@ export interface PortfolioProject {
   ai_experience: string;
   status: "Complete" | "In progress" | "Archived";
   image_url: string;
+  preview_is_concept: boolean;
   project_url: string;
   technologies: string[];
   featured: boolean;

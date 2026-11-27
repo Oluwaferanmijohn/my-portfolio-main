@@ -19,6 +19,7 @@ const images = [
   ["e-commerce-management", "e-commerce-management.png"],
   ["mimiq", "mimiq.png"],
 ];
+const conceptPreviews = new Set(["phenry-healthiko", "e-commerce-management", "mimiq"]);
 
 for (const [slug, fileName] of images) {
   const file = await readFile(new URL(`../assets/image/${fileName}`, import.meta.url));
@@ -29,7 +30,7 @@ for (const [slug, fileName] of images) {
   });
   if (uploadError) throw new Error(`Could not upload ${fileName}: ${uploadError.message}`);
   const { data: publicFile } = supabase.storage.from("portfolio-media").getPublicUrl(path);
-  const { error: updateError } = await supabase.from("portfolio_projects").update({ image_url: publicFile.publicUrl }).eq("slug", slug);
+  const { error: updateError } = await supabase.from("portfolio_projects").update({ image_url: publicFile.publicUrl, preview_is_concept: conceptPreviews.has(slug) }).eq("slug", slug);
   if (updateError) throw new Error(`Uploaded ${fileName}, but could not update its project record: ${updateError.message}`);
   console.log(`Uploaded ${fileName} for ${slug}.`);
 }

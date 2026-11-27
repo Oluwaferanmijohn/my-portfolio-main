@@ -18,7 +18,7 @@ export default defineNuxtConfig({
     contactEmail: process.env.CONTACT_EMAIL || "oluwatoyinferanmijohn@gmail.com",
     fromEmail: process.env.FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
     public: {
-      siteUrl: "https://oluwaferanmijohn.name.ng",
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://oluwaferanmijohn.name.ng",
       vapidPublicKey: process.env.VAPID_PUBLIC_KEY || "",
     },
   },

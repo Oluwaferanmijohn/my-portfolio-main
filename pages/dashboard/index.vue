@@ -85,7 +85,7 @@ function discardPendingUploads(context: UploadContext) {
 const notice = ref("");
 const inboxNotice = ref("");
 const articleNotice = ref("");
-const blank = (): Partial<PortfolioProject> => ({ title: "", slug: "", category: "Software", summary: "", concept: "", ai_experience: "", status: "Complete", image_url: "", project_url: "", technologies: [], featured: false, sort_order: (projects.value?.length || 0) * 10 });
+const blank = (): Partial<PortfolioProject> => ({ title: "", slug: "", category: "Software", summary: "", concept: "", ai_experience: "", status: "Complete", image_url: "", preview_is_concept: false, project_url: "", technologies: [], featured: false, sort_order: (projects.value?.length || 0) * 10 });
 const form = reactive<Partial<PortfolioProject>>(blank());
 const selectedArticle = ref<PortfolioArticle | null>(null);
 const blankArticle = (): Partial<PortfolioArticle> => ({ title: "", slug: "", excerpt: "", content: "", category: "Notes", image_url: "", image_urls: [], status: "Draft" });
@@ -322,7 +322,7 @@ onUnmounted(() => { if (inboxRefreshTimer) clearInterval(inboxRefreshTimer); win
     </header>
     <div v-if="overviewError" class="max-w-7xl mx-auto border border-red-300/40 bg-red-950/20 text-red-200 p-4 mb-8 flex flex-wrap items-center justify-between gap-3"><p>{{ fetchErrorText(overviewError, 'Statistics and messages could not be loaded.') }}</p><button class="border border-red-300/40 px-3 py-2 text-xs uppercase tracking-widest" @click="() => refreshOverview()">Retry</button></div>
     <section class="max-w-7xl mx-auto bg-off-black border border-white/10 p-5 md:p-7 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-      <div><p class="eyebrow">Public CV</p><p v-if="cvError" class="text-sm text-red-300 mt-2">{{ fetchErrorText(cvError, 'CV settings could not be loaded.') }}</p><p v-else class="text-sm text-muted mt-2">{{ cvSettings?.cvUrl ? 'Your CV link is live on the portfolio.' : 'Upload a PDF to add a tracked CV link to the portfolio.' }}</p><a v-if="!cvError && cvSettings?.cvUrl" :href="cvSettings.cvUrl" target="_blank" rel="noreferrer" class="text-xs text-gold-accent break-all mt-2 inline-block">{{ cvSettings.cvUrl }}</a></div>
+      <div><p class="eyebrow">Public CV</p><p v-if="cvError" class="text-sm text-red-300 mt-2">{{ fetchErrorText(cvError, 'CV settings could not be loaded.') }} <button class="underline" @click="() => refreshCv()">Retry</button></p><p v-else class="text-sm text-muted mt-2">{{ cvSettings?.cvUrl ? 'Your CV link is live on the portfolio.' : 'Upload a PDF to add a tracked CV link to the portfolio.' }}</p><a v-if="!cvError && cvSettings?.cvUrl" :href="cvSettings.cvUrl" target="_blank" rel="noreferrer" class="text-xs text-gold-accent break-all mt-2 inline-block">{{ cvSettings.cvUrl }}</a></div>
       <div class="flex items-center gap-3"><label class="border border-white/20 px-4 py-3 text-xs uppercase tracking-widest cursor-pointer hover:border-gold-accent" :class="uploadingCv ? 'opacity-50 pointer-events-none' : ''">{{ uploadingCv ? 'Uploading…' : 'Upload PDF' }}<input type="file" accept="application/pdf,.pdf" class="hidden" :disabled="uploadingCv" @change="uploadCv" /></label><button v-if="cvSettings?.cvUrl" class="text-xs text-red-300 px-3 py-2" @click="clearCv">Remove CV</button></div>
     </section>
     <section class="max-w-7xl mx-auto bg-off-black border border-white/10 p-5 md:p-7 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-5">
@@ -335,7 +335,7 @@ onUnmounted(() => { if (inboxRefreshTimer) clearInterval(inboxRefreshTimer); win
     <div class="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-8 items-start">
       <section class="bg-off-black border border-white/10 p-5 md:p-7">
         <div class="flex justify-between items-center mb-6"><h2 class="font-serif text-2xl">Projects</h2><button class="text-xs border border-white/20 px-3 py-2" @click="edit()">+ Add project</button></div>
-        <p v-if="projectsError" class="text-red-300 text-sm">{{ fetchErrorText(projectsError, 'Projects could not be loaded.') }}</p>
+        <p v-if="projectsError" class="text-red-300 text-sm">{{ fetchErrorText(projectsError, 'Projects could not be loaded.') }} <button class="underline" @click="() => refreshProjects()">Retry</button></p>
         <p v-else-if="!projects?.length" class="text-muted text-sm">No projects have been added yet.</p>
         <article v-for="project in projects" :key="project.id" class="flex items-center gap-4 py-4 border-t border-white/10">
           <img v-if="project.image_url" :src="project.image_url" class="w-14 h-14 object-cover bg-black" alt="" />
@@ -358,6 +358,7 @@ onUnmounted(() => { if (inboxRefreshTimer) clearInterval(inboxRefreshTimer); win
           <label class="text-xs text-muted sm:col-span-2">Image URL<input v-model="form.image_url" class="field" /></label>
           <label class="text-xs text-muted sm:col-span-2">{{ uploadingImage ? 'Uploading image…' : 'Choose and crop project image' }}<input type="file" accept="image/jpeg,image/png,image/webp,image/avif" class="field" :disabled="uploadingImage" @change="uploadImage" /></label>
           <label class="text-xs text-muted flex items-center gap-3"><input v-model="form.featured" type="checkbox" />Feature on home page</label>
+          <label class="text-xs text-muted flex items-center gap-3"><input v-model="form.preview_is_concept" type="checkbox" />Mark preview as concept artwork</label>
           <label class="text-xs text-muted">Order<input v-model.number="form.sort_order" type="number" class="field" /></label>
         </div>
         <p v-if="notice" class="text-sm text-gold-accent mt-4">{{ notice }}</p>

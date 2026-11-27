@@ -15,6 +15,10 @@ export default defineEventHandler(async (event) => {
     if (value.length > limit || (["slug", "title"].includes(key) && !value)) throw createError({ statusCode: 400, statusMessage: `Invalid project ${key}` });
     updates[key] = value;
   }
+  if (body.preview_is_concept !== undefined) {
+    if (typeof body.preview_is_concept !== "boolean") throw createError({ statusCode: 400, statusMessage: "Invalid preview type" });
+    updates.preview_is_concept = body.preview_is_concept;
+  }
   if (updates.slug !== undefined && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(updates.slug))) throw createError({ statusCode: 400, statusMessage: "Project slug can contain lowercase letters, numbers, and hyphens" });
   if (updates.project_url && !/^https:\/\//i.test(String(updates.project_url))) throw createError({ statusCode: 400, statusMessage: "Project links must use HTTPS" });
   if (updates.image_url && !String(updates.image_url).startsWith("/") && !/^https:\/\//i.test(String(updates.image_url))) throw createError({ statusCode: 400, statusMessage: "Image links must use HTTPS or a local site path" });
