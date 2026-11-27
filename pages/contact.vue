@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const { track } = usePortfolioAnalytics();
 const form = reactive({ name: "", email: "", subject: "", message: "", website: "" });
 const busy = ref(false); const sent = ref(false); const error = ref("");
 async function submit() {
   busy.value = true; error.value = "";
-  try { await $fetch("/api/contact", { method: "POST", body: form }); sent.value = true; track("contact_sent"); }
+  try { await $fetch("/api/contact", { method: "POST", body: form }); sent.value = true; }
   catch (e: any) { error.value = e?.data?.statusMessage || "Your message could not be sent. Please email me directly."; }
   busy.value = false;
 }

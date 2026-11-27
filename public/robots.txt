@@ -1,2 +1,6 @@
-User-Agent: *
-Disallow:
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /api/
+
+Sitemap: https://oluwaferanmijohn.name.ng/sitemap.xml

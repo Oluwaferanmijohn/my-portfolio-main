@@ -12,19 +12,19 @@ export default defineNuxtConfig({
     supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || "",
     adminUserId: process.env.ADMIN_USER_ID || "",
     resendApiKey: process.env.RESEND_API_KEY || "",
+    resendWebhookSecret: process.env.RESEND_WEBHOOK_SECRET || "",
     vapidPrivateKey: process.env.VAPID_PRIVATE_KEY || "",
     vapidSubject: process.env.VAPID_SUBJECT || "mailto:oluwatoyinferanmijohn@gmail.com",
     contactEmail: process.env.CONTACT_EMAIL || "oluwatoyinferanmijohn@gmail.com",
     fromEmail: process.env.FROM_EMAIL || "Portfolio <onboarding@resend.dev>",
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "",
-      cvUrl: process.env.NUXT_PUBLIC_CV_URL || "",
+      siteUrl: "https://oluwaferanmijohn.name.ng",
       vapidPublicKey: process.env.VAPID_PUBLIC_KEY || "",
     },
   },
   app: {
     head: {
-      title: "Oluwafernmi | Software Engineer",
+      title: "Oluwaferanmi | Software Engineer",
       meta: [
         { name: "description", content: "I design and build thoughtful digital products, from responsive interfaces to secure full-stack platforms." },
         { name: "theme-color", content: "#141414" },

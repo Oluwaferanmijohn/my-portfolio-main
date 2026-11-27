@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { PortfolioProject } from "~/types/project";
-import { fallbackProjects } from "~/data/fallback-projects";
-const { data } = await useFetch<PortfolioProject[]>("/api/projects", { default: () => [] });
-const projects = computed(() => data.value?.length ? data.value : fallbackProjects);
+const { data: projects, error: projectsError, refresh: refreshProjects } = await useFetch<PortfolioProject[]>("/api/projects", { default: () => [] });
+const featuredProjects = computed(() => projects.value?.filter((project) => project.featured).slice(0, 6) || []);
 const skills = ["HTML", "CSS", "Vue.js", "React", "Nuxt 4", "Laravel", "PHP", "TypeScript", "JavaScript", "Tailwind CSS", "PostCSS", "Autoprefixer", "PostgreSQL", "MySQL", "SQL", "Supabase", "Firebase", "Node.js", "NestJS", "Express", "Fastify", "Prisma", "Redis", "AWS SDK", "Amazon S3", "Capacitor", "Android", "iOS", "Pinia", "WebSockets", "PWA", "Zod", "REST APIs", "JWT", "Rate limiting", "Multipart uploads", "Google Gemini", "WhatsApp integrations", "Baileys", "QR codes", "Cron jobs", "Git", "GitHub", "npm", "Vercel", "Netlify", "Vitest", "Playwright", "Jest", "Supertest", "Sentry", "Pino", "RxJS", "ESLint", "AI-assisted development"];
 </script>
 <template>
@@ -27,10 +26,12 @@ const skills = ["HTML", "CSS", "Vue.js", "React", "Nuxt 4", "Laravel", "PHP", "T
 
     <section id="projects" class="page-wrap py-24 md:py-32 scroll-mt-24">
       <div class="flex flex-wrap justify-between items-end gap-5 mb-12"><div><p class="eyebrow">Selected work</p><h2 class="font-serif text-5xl md:text-6xl mt-4">Projects <span class="italic text-gold-accent">with purpose.</span></h2></div><NuxtLink to="/work" class="text-xs uppercase tracking-widest border border-white/20 rounded-full px-5 py-3 hover:border-gold-accent transition">All projects ↗</NuxtLink></div>
-      <div v-if="projects.length" class="grid md:grid-cols-2 gap-6">
-        <article v-for="(project,index) in projects.filter(p => p.featured).slice(0,6)" :key="project.id" class="group" :class="index===0 ? 'md:col-span-2' : ''">
+      <p v-if="projectsError" class="text-red-300 mb-8">Projects could not be loaded. <button class="underline" @click="() => refreshProjects()">Retry</button></p>
+      <p v-else-if="!featuredProjects.length" class="text-muted mb-8">Featured projects will appear here soon.</p>
+      <div v-else class="grid md:grid-cols-2 gap-6">
+        <article v-for="(project,index) in featuredProjects" :key="project.id" class="group" :class="index===0 ? 'md:col-span-2' : ''">
           <a :href="project.project_url || '/work'" :target="project.project_url ? '_blank' : undefined" rel="noreferrer" class="block">
-            <div class="aspect-[1.65] overflow-hidden bg-off-black border border-white/5 relative"><img v-if="project.image_url" :src="project.image_url" :alt="`${project.title} project preview`" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition duration-700" /><div v-else class="w-full h-full grid place-items-center text-gold-accent/50 font-serif text-6xl">{{ project.title.slice(0,1) }}</div><span class="absolute top-4 left-4 bg-rich-black/80 px-3 py-2 eyebrow">{{ project.category }}</span><span class="absolute right-4 top-4 bg-rich-black/80 px-3 py-2 text-[10px] uppercase tracking-widest">{{ project.status }}</span></div>
+            <div class="aspect-[1.6] overflow-hidden bg-off-black border border-white/5 relative"><img v-if="project.image_url" :src="project.image_url" :alt="`${project.title} project preview`" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition duration-700" /><div v-else class="w-full h-full grid place-items-center text-gold-accent/50 font-serif text-6xl">{{ project.title.slice(0,1) }}</div><span class="absolute top-4 left-4 bg-rich-black/80 px-3 py-2 eyebrow">{{ project.category }}</span><span class="absolute right-4 top-4 bg-rich-black/80 px-3 py-2 text-[10px] uppercase tracking-widest">{{ project.status }}</span></div>
             <div class="flex justify-between gap-4 items-start py-5 border-b border-white/10"><div><h3 class="font-serif text-2xl md:text-3xl group-hover:text-gold-accent transition">{{ project.title }}</h3><p class="text-sm text-muted mt-2 max-w-xl">{{ project.summary }}</p></div><span class="mt-1 text-gold-accent shrink-0">↗</span></div>
           </a>
         </article>

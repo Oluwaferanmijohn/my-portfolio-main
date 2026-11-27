@@ -13,3 +13,5 @@ export interface PortfolioArticle {
   created_at: string;
   updated_at: string;
 }
+
+export type PortfolioArticleSummary = Pick<PortfolioArticle, "id" | "slug" | "title" | "excerpt" | "category" | "image_url" | "read_count" | "published_at">;

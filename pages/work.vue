@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { PortfolioProject } from "~/types/project";
-import { fallbackProjects } from "~/data/fallback-projects";
-const { data } = await useFetch<PortfolioProject[]>("/api/projects", { default: () => [] });
-const projects = computed(() => data.value?.length ? data.value : fallbackProjects);
+const { data: projects, error: projectsError, refresh: refreshProjects } = await useFetch<PortfolioProject[]>("/api/projects", { default: () => [] });
 </script>
 <template>
   <main class="page-wrap pt-36 pb-24 min-h-screen">
     <p class="eyebrow">A growing body of work</p><h1 class="font-serif text-6xl md:text-8xl mt-4">Selected <span class="italic text-gold-accent">projects.</span></h1>
     <p class="text-muted max-w-2xl leading-7 mt-7 mb-14">A collection of software products and digital experiences across commerce, education, health, entertainment, and business. Each project includes its concept, completion status, and the technologies recorded in the project portfolio.</p>
-    <div v-if="projects.length" class="grid md:grid-cols-2 gap-x-7 gap-y-12">
+    <p v-if="projectsError" class="text-red-300 mb-8">Projects could not be loaded. <button class="underline" @click="() => refreshProjects()">Retry</button></p>
+    <p v-else-if="!projects?.length" class="text-muted mb-8">No projects are published yet.</p>
+    <div v-else class="grid md:grid-cols-2 gap-x-7 gap-y-12">
       <article v-for="project in projects" :key="project.id" class="group border-t border-white/10 pt-5">
         <div class="aspect-[1.6] bg-off-black overflow-hidden border border-white/5"><img v-if="project.image_url" :src="project.image_url" :alt="`${project.title} project preview`" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition duration-700" /><div v-else class="h-full grid place-items-center font-serif text-7xl text-gold-accent/40">{{ project.title.slice(0,1) }}</div></div>
         <div class="flex justify-between items-start gap-4 mt-5"><div><p class="eyebrow">{{ project.category }} · {{ project.status }}</p><h2 class="font-serif text-3xl mt-2">{{ project.title }}</h2></div><a v-if="project.project_url" :href="project.project_url" target="_blank" rel="noreferrer" class="p-3 border border-white/15 hover:border-gold-accent" :aria-label="`Visit ${project.title}`">↗</a></div>

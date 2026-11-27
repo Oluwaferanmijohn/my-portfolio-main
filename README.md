@@ -11,11 +11,13 @@ A Nuxt 4 portfolio with Tailwind CSS, Supabase-backed projects, articles and med
 5. In the Supabase SQL Editor, apply `supabase/migrations/202610270001_portfolio.sql`.
 6. Apply `supabase/migrations/202610280001_articles_and_push.sql`. This adds blog publishing and device subscriptions, and seeds three sample articles (including one with a cover image) for the first preview.
 7. Apply `supabase/migrations/202610290001_article_read_counts.sql`. This adds aggregate article readership counts without storing visitor identities.
-8. Run `npm run seed:images` to upload the five existing project images and the sample article cover into Supabase Storage and update their records. New project, article, and CV images can be uploaded through the dashboard.
-9. Set `RESEND_API_KEY`, `CONTACT_EMAIL`, and a verified `FROM_EMAIL` to receive email notifications. Every contact form message is stored in Supabase and appears in the dashboard inbox; Resend sends an additional email notification.
-10. VAPID push keys are in the local `.env`. Copy the same `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, Supabase server values, and `ADMIN_USER_ID` into your production host's environment variables. Do not generate a replacement key pair after devices subscribe.
-11. Optionally set `NUXT_PUBLIC_CV_URL` to an externally hosted CV PDF and `NUXT_PUBLIC_SITE_URL` to the canonical site origin. Or upload the CV from the dashboard to store it in Supabase.
-12. Run `npm run dev`, then visit `http://localhost:3002` and sign in at `http://localhost:3002/dashboard/login` with the admin account.
+8. Apply `supabase/migrations/202611260001_contact_email_delivery.sql`, `202611260002_contact_ip_rate_limit.sql`, and `202611260003_inbound_email.sql` in that order. Apply these before deploying the matching code because the contact form RPC changes in the second migration.
+9. Run `npm run seed:images` to upload the five existing project images and the sample article cover into Supabase Storage and update their records. New project, article, and CV images can be uploaded through the dashboard.
+10. Set `RESEND_API_KEY`, `CONTACT_EMAIL`, and a verified `FROM_EMAIL` to receive email notifications. Every contact form message is stored in Supabase and appears in the dashboard inbox; Resend sends an additional email notification. The dashboard shows delivery status and lets the owner retry failed notifications.
+11. To receive direct email in the dashboard, configure Resend Receiving for a dedicated address or forward an existing mailbox to it. Add an `email.received` webhook pointing to `https://oluwaferanmijohn.name.ng/api/webhooks/resend` and set `RESEND_WEBHOOK_SECRET` to its signing secret. The API key needs access to received email. This does not automatically copy mail sent to an existing mailbox; that mailbox must forward messages to the Resend receiving address.
+12. VAPID push keys are in the local `.env`. Copy the same `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`, Supabase server values, and `ADMIN_USER_ID` into your production host's environment variables. Do not generate a replacement key pair after devices subscribe.
+13. Set `NUXT_PUBLIC_SITE_URL=https://oluwaferanmijohn.name.ng` on Vercel. Upload the CV from the dashboard to store it in Supabase.
+14. Run `npm run dev`, then visit `http://localhost:3002` and sign in at `http://localhost:3002/dashboard/login` with the admin account.
 
 The migration seeds the portfolio with the known project list and the existing five project images. Where package metadata was available, technology tags were taken from those manifests; the dashboard lets you review or change any project detail, status, concept, AI description, and stack.
 
@@ -26,7 +28,7 @@ The repository includes `.github/workflows/supabase-keepalive.yml`, which calls 
 ## Dashboard and data
 
 - `/dashboard/login` authenticates the owner with Supabase Auth.
-- `/dashboard` manages projects, uploaded images, basic visit/CV/contact counts, and the message inbox.
+- `/dashboard` manages projects, uploaded images, basic visit/CV/contact counts, the paged contact inbox, and received email.
 - The dashboard inbox keeps contact messages even if email delivery fails; unread messages can be marked read and replied to by email.
 - `/blog` lists published articles. Selecting one opens the full article; article opens increment aggregate read counts without storing reader identities. The dashboard shows totals and per-article reads.
 - `/manifest.webmanifest` and `/sw.js` make the site installable. After installing it on a phone, sign in on that device and enable push notifications in the dashboard. Contact form submissions trigger an alert on subscribed devices.

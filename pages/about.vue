@@ -1,7 +1,6 @@
 <script setup lang="ts">
-const config = useRuntimeConfig();
 const { data: cvSettings } = await useFetch<{ cvUrl: string }>("/api/settings/cv", { default: () => ({ cvUrl: "" }) });
-const cvUrl = computed(() => cvSettings.value?.cvUrl || config.public.cvUrl);
+const cvUrl = computed(() => cvSettings.value?.cvUrl || "");
 const { track } = usePortfolioAnalytics();
 </script>
 <template>

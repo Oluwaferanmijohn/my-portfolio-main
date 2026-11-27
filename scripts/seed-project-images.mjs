@@ -12,6 +12,12 @@ const images = [
   ["poketincome", "poketincome.PNG"],
   ["mooviz", "moviz.PNG"],
   ["phenry-technologies", "phenrytech.PNG"],
+  ["phenry-os", "phenry-os.png"],
+  ["yale-game", "yale-game.png"],
+  ["phenry-school-management", "phenry-school-management.png"],
+  ["phenry-healthiko", "phenry-healthiko.png"],
+  ["e-commerce-management", "e-commerce-management.png"],
+  ["mimiq", "mimiq.png"],
 ];
 
 for (const [slug, fileName] of images) {
